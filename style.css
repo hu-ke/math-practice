@@ -1,0 +1,1224 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(135deg, #0a0e27 0%, #1a1a4e 30%, #2d1b69 60%, #0f0c29 100%);
+    color: #e8e8ff;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* 星空背景 */
+.stars-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.stars-bg .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--duration) ease-in-out infinite;
+    opacity: 0;
+}
+
+.stars-bg .star.big {
+    box-shadow: 0 0 6px 2px rgba(255, 215, 0, 0.6);
+    background: #FFD700;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes shootingStar {
+    0% { transform: translateX(0) translateY(0); opacity: 1; }
+    100% { transform: translateX(300px) translateY(300px); opacity: 0; }
+}
+
+.app-container {
+    max-width: 900px;
+    margin: 20px auto;
+    background: linear-gradient(180deg, rgba(20, 20, 60, 0.95) 0%, rgba(30, 25, 70, 0.95) 100%);
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(138, 43, 226, 0.3), 0 0 80px rgba(75, 0, 130, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    border: 1px solid rgba(138, 43, 226, 0.3);
+}
+
+/* 顶部导航栏 */
+.app-header {
+    background: linear-gradient(135deg, #1a0533 0%, #2d1b69 40%, #4a1a8a 70%, #1a0533 100%);
+    color: white;
+    padding: 25px 20px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.app-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(138, 43, 226, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(75, 0, 130, 0.3) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.logo img {
+    margin-right: 20px;
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+}
+
+.header-title {
+    flex: 1;
+    text-align: center;
+}
+
+.header-title h1 {
+    font-size: 2em;
+    margin-bottom: 5px;
+    color: #FFD700;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.2);
+    letter-spacing: 3px;
+}
+
+.header-title p {
+    font-size: 1em;
+    color: #b8b8ff;
+    text-shadow: 0 0 10px rgba(184, 184, 255, 0.3);
+}
+
+.trophy img {
+    margin-left: 20px;
+    animation: float 3s ease-in-out infinite 1.5s;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+}
+
+/* 导航标签 */
+.app-nav {
+    display: flex;
+    background: rgba(10, 10, 40, 0.6);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    position: relative;
+    z-index: 1;
+}
+
+.nav-item {
+    flex: 1;
+    text-align: center;
+    padding: 12px 0;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-right: 1px solid rgba(138, 43, 226, 0.2);
+    font-size: 0.95em;
+    position: relative;
+}
+
+.nav-item:last-child {
+    border-right: none;
+}
+
+.nav-item:hover {
+    background: rgba(138, 43, 226, 0.3);
+    color: #FFD700;
+}
+
+.nav-item.active {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.2));
+    font-weight: bold;
+    color: #FFD700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    box-shadow: inset 0 -3px 0 #FFD700;
+}
+
+/* 主要内容区域 */
+.app-main {
+    padding: 30px;
+}
+
+/* 年级选择区域 */
+.grade-section {
+    background: linear-gradient(135deg, rgba(30, 25, 70, 0.6), rgba(50, 30, 100, 0.4));
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(138, 43, 226, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.grade-section h2 {
+    color: #FFD700;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    text-align: center;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.grade-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.grade-btn {
+    padding: 15px 30px;
+    font-size: 1.1em;
+    border: 2px solid rgba(138, 43, 226, 0.5);
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(30, 20, 60, 0.8), rgba(60, 30, 120, 0.6));
+    color: #e8e8ff;
+    cursor: pointer;
+    transition: all 0.3s;
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(5px);
+}
+
+.grade-btn:hover {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.5), rgba(75, 0, 130, 0.5));
+    color: #FFD700;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(138, 43, 226, 0.4), 0 0 15px rgba(255, 215, 0, 0.2);
+    border-color: #FFD700;
+}
+
+.btn-icon {
+    font-size: 1.8em;
+    display: block;
+}
+
+/* 练习区域 */
+.practice-section {
+    background: linear-gradient(135deg, rgba(30, 25, 70, 0.6), rgba(50, 30, 100, 0.4));
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(138, 43, 226, 0.2);
+}
+
+/* 统计信息 */
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+    gap: 15px;
+}
+
+.stat-card {
+    flex: 1;
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.3), rgba(75, 0, 130, 0.3));
+    color: white;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(138, 43, 226, 0.3);
+}
+
+.stat-icon {
+    font-size: 2em;
+    margin-bottom: 5px;
+}
+
+.stat-number {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #FFD700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+}
+
+.stat-label {
+    font-size: 1em;
+    opacity: 0.8;
+    color: #b8b8ff;
+}
+
+/* 题目区域 */
+.questions-container {
+    background: rgba(15, 10, 40, 0.5);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(138, 43, 226, 0.15);
+}
+
+.question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, rgba(40, 30, 80, 0.5), rgba(60, 40, 100, 0.3));
+    border-radius: 8px;
+    border-left: 3px solid #8a2be2;
+    transition: all 0.3s;
+}
+
+.question:hover {
+    background: linear-gradient(135deg, rgba(60, 40, 120, 0.5), rgba(80, 50, 140, 0.3));
+    border-left-color: #FFD700;
+}
+
+.question-number {
+    font-weight: bold;
+    color: #FFD700;
+    margin-right: 15px;
+    min-width: 30px;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+}
+
+.question-text {
+    flex: 1;
+    font-size: 1.2em;
+    color: #e8e8ff;
+}
+
+.answer-input {
+    width: 100px;
+    padding: 8px;
+    font-size: 1.1em;
+    border: 2px solid rgba(138, 43, 226, 0.4);
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s;
+    background: rgba(20, 15, 50, 0.6);
+    color: #FFD700;
+    font-weight: bold;
+}
+
+.answer-input:focus {
+    outline: none;
+    border-color: #FFD700;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3), inset 0 0 10px rgba(255, 215, 0, 0.1);
+}
+
+.answer-input.correct {
+    border-color: #00ff88;
+    background: rgba(0, 255, 136, 0.1);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+.answer-input.incorrect {
+    border-color: #ff4466;
+    background: rgba(255, 68, 102, 0.1);
+    box-shadow: 0 0 10px rgba(255, 68, 102, 0.3);
+}
+
+/* 操作按钮 */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #8a2be2, #6a1b9a);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+    border: 1px solid rgba(200, 130, 255, 0.3);
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, #9b3de8, #7b2baa);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(138, 43, 226, 0.5);
+}
+
+.reset-btn {
+    background: linear-gradient(135deg, #FF8C00, #FF6600);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
+    border: 1px solid rgba(255, 200, 100, 0.3);
+}
+
+.reset-btn:hover {
+    background: linear-gradient(135deg, #FFa020, #FF7700);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 140, 0, 0.4);
+}
+
+.back-btn {
+    background: linear-gradient(135deg, rgba(100, 100, 150, 0.5), rgba(80, 80, 120, 0.5));
+    color: #b8b8ff;
+    padding: 12px 30px;
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    border-radius: 10px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.back-btn:hover {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.4), rgba(100, 30, 180, 0.4));
+    color: #FFD700;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+}
+
+.clear-data-btn {
+    background: linear-gradient(135deg, #cc2244, #991133);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(204, 34, 68, 0.3);
+    border: 1px solid rgba(255, 100, 130, 0.3);
+}
+
+.clear-data-btn:hover {
+    background: linear-gradient(135deg, #dd3355, #aa2244);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(204, 34, 68, 0.4);
+}
+
+/* 错题本区域 */
+.wrong-section {
+    background: linear-gradient(135deg, rgba(30, 25, 70, 0.6), rgba(50, 30, 100, 0.4));
+    border-radius: 15px;
+    padding: 25px;
+    margin-top: 20px;
+    border: 1px solid rgba(138, 43, 226, 0.2);
+}
+
+.wrong-section h2 {
+    color: #ff4466;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    text-align: center;
+    text-shadow: 0 0 15px rgba(255, 68, 102, 0.4);
+}
+
+.wrong-container {
+    background: rgba(15, 10, 40, 0.5);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 68, 102, 0.15);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.grade-wrong-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(60, 20, 30, 0.4), rgba(80, 30, 40, 0.3));
+    border-radius: 10px;
+    border-left: 4px solid #ff4466;
+}
+
+.grade-wrong-section h3 {
+    color: #ff4466;
+    margin-bottom: 15px;
+}
+
+.wrong-answer-info {
+    margin-left: 45px;
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #b8b8ff;
+}
+
+.user-answer {
+    margin-right: 20px;
+    color: #ff4466;
+}
+
+.correct-answer {
+    color: #00ff88;
+}
+
+/* 练习历史区域 */
+.history-section {
+    background: linear-gradient(135deg, rgba(30, 25, 70, 0.6), rgba(50, 30, 100, 0.4));
+    border-radius: 15px;
+    padding: 25px;
+    margin-top: 20px;
+    border: 1px solid rgba(138, 43, 226, 0.2);
+}
+
+.history-section h2 {
+    color: #00bfff;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    text-align: center;
+    text-shadow: 0 0 15px rgba(0, 191, 255, 0.4);
+}
+
+.history-container {
+    background: rgba(15, 10, 40, 0.5);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 191, 255, 0.15);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.history-item {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: linear-gradient(135deg, rgba(30, 40, 80, 0.4), rgba(40, 50, 100, 0.3));
+    border-radius: 10px;
+    border-left: 4px solid #00bfff;
+}
+
+.history-item h3 {
+    color: #00bfff;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.history-item p {
+    margin: 5px 0;
+    color: #b8b8ff;
+}
+
+.history-item .history-date {
+    font-size: 0.9em;
+    color: #8888bb;
+    margin-top: 10px;
+}
+
+.history-item .history-score {
+    font-weight: bold;
+    color: #00ff88;
+    text-shadow: 0 0 5px rgba(0, 255, 136, 0.3);
+}
+
+/* 我的奖励区域 */
+.rewards-section {
+    background: linear-gradient(135deg, rgba(30, 25, 70, 0.6), rgba(50, 30, 100, 0.4));
+    border-radius: 15px;
+    padding: 25px;
+    margin-top: 20px;
+    border: 1px solid rgba(138, 43, 226, 0.2);
+}
+
+.rewards-section h2 {
+    color: #FFD700;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    text-align: center;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.rewards-container {
+    background: rgba(15, 10, 40, 0.5);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 215, 0, 0.15);
+}
+
+.rewards-summary {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+    gap: 15px;
+}
+
+.reward-card {
+    flex: 1;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 165, 0, 0.1));
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.reward-icon {
+    font-size: 2.5em;
+}
+
+.reward-value {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #FFD700;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+.reward-label {
+    font-size: 1em;
+    color: #b8b8ff;
+}
+
+.rewards-achievements,
+.rewards-badges {
+    margin-bottom: 30px;
+}
+
+.rewards-achievements h3,
+.rewards-badges h3 {
+    color: #FFD700;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.achievements-container,
+.badges-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.achievement-item,
+.badge-item {
+    background: linear-gradient(135deg, rgba(40, 30, 80, 0.6), rgba(60, 40, 100, 0.4));
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    transition: all 0.3s;
+}
+
+.achievement-item:hover,
+.badge-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(138, 43, 226, 0.3), 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+.achievement-item.locked,
+.badge-item.locked {
+    background: rgba(30, 25, 50, 0.4);
+    border-color: rgba(100, 100, 150, 0.3);
+    opacity: 0.5;
+}
+
+.achievement-icon,
+.badge-icon {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.achievement-name,
+.badge-name {
+    font-weight: bold;
+    color: #e8e8ff;
+    margin-bottom: 5px;
+}
+
+.achievement-desc,
+.badge-desc {
+    font-size: 0.9em;
+    color: #8888bb;
+}
+
+.achievement-progress {
+    margin-top: 10px;
+    font-size: 0.85em;
+    color: #FFD700;
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(15, 10, 40, 0.5);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #8a2be2, #6a1b9a);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #9b3de8, #7b2baa);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .app-container {
+        margin: 10px;
+        border-radius: 15px;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .logo img,
+    .trophy img {
+        margin: 0;
+    }
+    
+    .header-title h1 {
+        font-size: 1.5em;
+    }
+    
+    .grade-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .grade-btn {
+        width: 200px;
+    }
+    
+    .stats-container {
+        flex-direction: column;
+    }
+    
+    .rewards-summary {
+        flex-direction: column;
+    }
+    
+    .achievements-container,
+    .badges-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    
+    .app-main {
+        padding: 15px;
+    }
+}
+
+/* 多人比赛模式 */
+.battle-section {
+    background: linear-gradient(135deg, rgba(30, 25, 70, 0.6), rgba(50, 30, 100, 0.4));
+    border-radius: 15px;
+    padding: 25px;
+    border: 1px solid rgba(138, 43, 226, 0.2);
+}
+
+.battle-setup h2 {
+    color: #FFD700;
+    font-size: 1.8em;
+    text-align: center;
+    margin-bottom: 10px;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.battle-desc {
+    text-align: center;
+    color: #b8b8ff;
+    margin-bottom: 25px;
+    font-size: 1.05em;
+}
+
+.battle-config {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.config-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.config-item label {
+    color: #b8b8ff;
+    font-size: 1em;
+    min-width: 80px;
+    text-align: right;
+}
+
+.player-count-btns,
+.battle-grade-btns,
+.question-count-btns {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.count-btn,
+.battle-grade-btn,
+.qcount-btn {
+    padding: 8px 20px;
+    border: 2px solid rgba(138, 43, 226, 0.4);
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(30, 20, 60, 0.8), rgba(60, 30, 120, 0.6));
+    color: #b8b8ff;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.95em;
+}
+
+.count-btn:hover,
+.battle-grade-btn:hover,
+.qcount-btn:hover {
+    border-color: #FFD700;
+    color: #FFD700;
+}
+
+.count-btn.active,
+.battle-grade-btn.active,
+.qcount-btn.active {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.2));
+    border-color: #FFD700;
+    color: #FFD700;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+}
+
+.player-names {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 25px;
+    padding: 20px;
+    background: rgba(15, 10, 40, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(138, 43, 226, 0.15);
+}
+
+.player-name-input {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.player-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3em;
+    flex-shrink: 0;
+}
+
+.pname-input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 2px solid rgba(138, 43, 226, 0.4);
+    border-radius: 8px;
+    background: rgba(20, 15, 50, 0.6);
+    color: #e8e8ff;
+    font-size: 1em;
+    transition: all 0.3s;
+}
+
+.pname-input:focus {
+    outline: none;
+    border-color: #FFD700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+}
+
+.battle-start-btn {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #1a0533;
+    padding: 14px 40px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+    letter-spacing: 2px;
+}
+
+.battle-start-btn:hover {
+    background: linear-gradient(135deg, #FFE44D, #FFB733);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(255, 215, 0, 0.5);
+}
+
+/* 比赛进行中 */
+.battle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.battle-title {
+    color: #FFD700;
+    font-size: 1.5em;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.battle-timer {
+    font-size: 1.5em;
+    color: #00bfff;
+    text-shadow: 0 0 10px rgba(0, 191, 255, 0.4);
+    font-weight: bold;
+}
+
+.battle-players-status {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.battle-player-status {
+    flex: 1;
+    min-width: 100px;
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid rgba(138, 43, 226, 0.3);
+    background: rgba(20, 15, 50, 0.5);
+    transition: all 0.3s;
+}
+
+.battle-player-status.current {
+    border-color: #FFD700;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.05));
+}
+
+.battle-player-status .bps-name {
+    font-weight: bold;
+    font-size: 1em;
+    margin-bottom: 5px;
+}
+
+.battle-player-status .bps-score {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #FFD700;
+}
+
+.battle-player-status .bps-progress {
+    font-size: 0.85em;
+    color: #8888bb;
+    margin-top: 3px;
+}
+
+.battle-current-player {
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.05));
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.battle-current-player .bcp-label {
+    font-size: 0.9em;
+    color: #8888bb;
+    margin-bottom: 5px;
+}
+
+.battle-current-player .bcp-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #FFD700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+}
+
+.battle-question-area {
+    background: rgba(15, 10, 40, 0.5);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(138, 43, 226, 0.2);
+    text-align: center;
+}
+
+.battle-question-display {
+    font-size: 3em;
+    font-weight: bold;
+    color: #e8e8ff;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+}
+
+.battle-progress {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.battle-progress-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(138, 43, 226, 0.3);
+    border: 1px solid rgba(138, 43, 226, 0.5);
+    transition: all 0.3s;
+}
+
+.battle-progress-dot.correct {
+    background: #00ff88;
+    border-color: #00ff88;
+    box-shadow: 0 0 6px rgba(0, 255, 136, 0.5);
+}
+
+.battle-progress-dot.wrong {
+    background: #ff4466;
+    border-color: #ff4466;
+    box-shadow: 0 0 6px rgba(255, 68, 102, 0.5);
+}
+
+.battle-progress-dot.current {
+    background: #FFD700;
+    border-color: #FFD700;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+    transform: scale(1.3);
+}
+
+.battle-answer-area {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.battle-answer-input {
+    width: 200px;
+    padding: 15px;
+    font-size: 1.5em;
+    border: 2px solid rgba(138, 43, 226, 0.4);
+    border-radius: 12px;
+    text-align: center;
+    background: rgba(20, 15, 50, 0.6);
+    color: #FFD700;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.battle-answer-input:focus {
+    outline: none;
+    border-color: #FFD700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.battle-feedback {
+    text-align: center;
+    min-height: 40px;
+    font-size: 1.3em;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.battle-feedback.correct {
+    color: #00ff88;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+}
+
+.battle-feedback.wrong {
+    color: #ff4466;
+    text-shadow: 0 0 10px rgba(255, 68, 102, 0.4);
+}
+
+/* 比赛结果 */
+.result-title {
+    color: #FFD700;
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 25px;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.result-podium {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding: 20px;
+}
+
+.podium-item {
+    text-align: center;
+    border-radius: 12px;
+    padding: 20px 25px;
+    min-width: 140px;
+    transition: all 0.3s;
+}
+
+.podium-item.first {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.15));
+    border: 2px solid #FFD700;
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+    transform: translateY(-10px);
+}
+
+.podium-item.second {
+    background: linear-gradient(135deg, rgba(192, 192, 192, 0.15), rgba(169, 169, 169, 0.1));
+    border: 2px solid #C0C0C0;
+    box-shadow: 0 0 15px rgba(192, 192, 192, 0.2);
+}
+
+.podium-item.third {
+    background: linear-gradient(135deg, rgba(205, 127, 50, 0.15), rgba(184, 115, 51, 0.1));
+    border: 2px solid #CD7F32;
+    box-shadow: 0 0 15px rgba(205, 127, 50, 0.2);
+}
+
+.podium-item.other {
+    background: rgba(30, 25, 70, 0.4);
+    border: 2px solid rgba(138, 43, 226, 0.2);
+}
+
+.podium-rank {
+    font-size: 2.5em;
+    margin-bottom: 5px;
+}
+
+.podium-name {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #e8e8ff;
+    margin-bottom: 8px;
+}
+
+.podium-score {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #FFD700;
+}
+
+.podium-detail {
+    font-size: 0.85em;
+    color: #8888bb;
+    margin-top: 5px;
+}
+
+.result-details {
+    background: rgba(15, 10, 40, 0.5);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(138, 43, 226, 0.15);
+}
+
+.result-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(138, 43, 226, 0.1);
+}
+
+.result-detail-row:last-child {
+    border-bottom: none;
+}
+
+.result-detail-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    color: #e8e8ff;
+}
+
+.result-detail-stats {
+    display: flex;
+    gap: 20px;
+    color: #b8b8ff;
+    font-size: 0.95em;
+}
+
+.result-detail-stats span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+@media (max-width: 768px) {
+    .config-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .config-item label {
+        text-align: left;
+    }
+
+    .battle-question-display {
+        font-size: 2em;
+    }
+
+    .battle-answer-input {
+        width: 160px;
+        font-size: 1.2em;
+    }
+
+    .result-podium {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .podium-item {
+        min-width: 200px;
+    }
+
+    .podium-item.first {
+        transform: none;
+    }
+
+    .result-detail-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}

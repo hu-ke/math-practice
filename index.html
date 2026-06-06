@@ -8,6 +8,28 @@
 </head>
 <body>
     <div class="stars-bg" id="stars-bg"></div>
+    <!-- 马里奥装饰元素 -->
+    <div class="mario-decorations">
+        <!-- 蘑菇装饰 -->
+        <div class="mushroom mushroom-1">🍄</div>
+        <div class="mushroom mushroom-2">🍄</div>
+        <div class="mushroom mushroom-3">🍄</div>
+        <!-- 金币装饰 -->
+        <div class="coin coin-1">🪙</div>
+        <div class="coin coin-2">🪙</div>
+        <div class="coin coin-3">🪙</div>
+        <!-- 星星装饰 -->
+        <div class="star star-1">⭐</div>
+        <div class="star star-2">⭐</div>
+        <div class="star star-3">⭐</div>
+        <!-- 管道装饰 -->
+        <div class="pipe pipe-1"></div>
+        <div class="pipe pipe-2"></div>
+        <!-- 砖块装饰 -->
+        <div class="brick brick-1"></div>
+        <div class="brick brick-2"></div>
+        <div class="brick brick-3"></div>
+    </div>
     <div class="app-container">
         <!-- 顶部导航栏 -->
         <header class="app-header">
@@ -76,7 +98,111 @@
                 </div>
                 <button class="back-to-grade-btn" id="back-to-grade-btn">← 返回年级选择</button>
             </section>
-            
+
+            <!-- 一年级基础练习二级子目录 -->
+            <section class="sub-grade-section" id="sub-sub-grade-section" style="display: none;">
+                <h2 id="sub-sub-grade-title">基础练习类型</h2>
+                <div class="sub-grade-buttons">
+                    <button class="sub-grade-btn" data-subgrade="within10">
+                        <span class="sub-btn-icon">🔢</span>
+                        <span class="sub-btn-title">10以内加减法</span>
+                    </button>
+                    <button class="sub-grade-btn" data-subgrade="within20">
+                        <span class="sub-btn-icon">🔢</span>
+                        <span class="sub-btn-title">20以内加减法</span>
+                    </button>
+                    <button class="sub-grade-btn" data-subgrade="currency">
+                        <span class="sub-btn-icon">💰</span>
+                        <span class="sub-btn-title">元角分练习</span>
+                    </button>
+                </div>
+                <button class="back-to-grade-btn" id="back-to-sub-grade-btn">← 返回练习模式</button>
+            </section>
+
+            <!-- 二年级基础练习二级子目录 -->
+            <section class="sub-grade-section" id="sub-sub-grade-section-2" style="display: none;">
+                <h2 id="sub-sub-grade-title-2">基础练习类型</h2>
+                <div class="sub-grade-buttons">
+                    <button class="sub-grade-btn" data-subgrade="within100">
+                        <span class="sub-btn-icon">🔢</span>
+                        <span class="sub-btn-title">100以内加减法</span>
+                    </button>
+                    <button class="sub-grade-btn" data-subgrade="multiplication">
+                        <span class="sub-btn-icon">✖️</span>
+                        <span class="sub-btn-title">表内乘除法</span>
+                    </button>
+                    <button class="sub-grade-btn" data-subgrade="units">
+                        <span class="sub-btn-icon">📏</span>
+                        <span class="sub-btn-title">长度重量单位换算</span>
+                    </button>
+                </div>
+                <button class="back-to-grade-btn" id="back-to-sub-grade-btn-2">← 返回练习模式</button>
+            </section>
+
+            <!-- 三年级基础练习二级子目录 -->
+            <section class="sub-grade-section" id="sub-sub-grade-section-3" style="display: none;">
+                <h2 id="sub-sub-grade-title-3">基础练习类型</h2>
+                <div class="sub-grade-buttons">
+                    <button class="sub-grade-btn" data-subgrade="within10000">
+                        <span class="sub-btn-icon">🔢</span>
+                        <span class="sub-btn-title">万以内加减法</span>
+                    </button>
+                    <button class="sub-grade-btn" data-subgrade="twoDigitMultDiv">
+                        <span class="sub-btn-icon">✖️</span>
+                        <span class="sub-btn-title">两位数乘除法</span>
+                    </button>
+                    <button class="sub-grade-btn" data-subgrade="decimalBasic">
+                        <span class="sub-btn-icon">🔢</span>
+                        <span class="sub-btn-title">简单的小数加减</span>
+                    </button>
+                </div>
+                <button class="back-to-grade-btn" id="back-to-sub-grade-btn-3">← 返回练习模式</button>
+            </section>
+
+            <!-- 四年级基础练习二级子目录 -->
+            <section class="sub-grade-section" id="sub-sub-grade-section-4" style="display: none;">
+                <h2 id="sub-sub-grade-title-4">基础练习类型</h2>
+                <div class="sub-grade-buttons">
+                    <button class="sub-grade-btn" data-subgrade="threeDigitTwoDigitMult">
+                        <span class="sub-btn-icon">✖️</span>
+                        <span class="sub-btn-title">三位数乘两位数乘法</span>
+                    </button>
+                    <button class="sub-grade-btn" data-subgrade="twoDigitDiv">
+                        <span class="sub-btn-icon">➗</span>
+                        <span class="sub-btn-title">两位数除法</span>
+                    </button>
+                    <button class="sub-grade-btn" data-subgrade="decimalAddSub">
+                        <span class="sub-btn-icon">🔢</span>
+                        <span class="sub-btn-title">小数加减法</span>
+                    </button>
+                    <button class="sub-grade-btn" data-subgrade="unitConversion">
+                        <span class="sub-btn-icon">📏</span>
+                        <span class="sub-btn-title">度量单位换算</span>
+                    </button>
+                </div>
+                <button class="back-to-grade-btn" id="back-to-sub-grade-btn-4">← 返回练习模式</button>
+            </section>
+
+            <!-- 五年级基础练习二级子目录 -->
+            <section class="sub-grade-section" id="sub-sub-grade-section-5" style="display: none;">
+                <h2 id="sub-sub-grade-title-5">基础练习类型</h2>
+                <div class="sub-grade-buttons">
+                    <button class="sub-grade-btn" data-subgrade="decimalMult">
+                        <span class="sub-btn-icon">✖️</span>
+                        <span class="sub-btn-title">小数乘法</span>
+                    </button>
+                    <button class="sub-grade-btn" data-subgrade="decimalDiv">
+                        <span class="sub-btn-icon">➗</span>
+                        <span class="sub-btn-title">小数除法</span>
+                    </button>
+                    <button class="sub-grade-btn" data-subgrade="fractionAddSub">
+                        <span class="sub-btn-icon">🔢</span>
+                        <span class="sub-btn-title">分数加减法</span>
+                    </button>
+                </div>
+                <button class="back-to-grade-btn" id="back-to-sub-grade-btn-5">← 返回练习模式</button>
+            </section>
+
             <!-- 练习区域 -->
             <section class="practice-section" id="practice-section">
                 <div class="stats-container">
@@ -262,6 +388,6 @@
         </main>
     </div>
     
-    <script src="script.js?v=2026052606"></script>
+    <script src="script.js?v=2026060607"></script>
 </body>
 </html>

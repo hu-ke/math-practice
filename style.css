@@ -5,73 +5,254 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Arial', 'Microsoft YaHei', sans-serif;
-    background: linear-gradient(135deg, #0a0e27 0%, #1a1a4e 30%, #2d1b69 60%, #0f0c29 100%);
-    color: #e8e8ff;
-    line-height: 1.6;
-    min-height: 100vh;
-}
-
-/* 星空背景 */
-.stars-bg {
+/* 马里奥装饰元素 */
+.mario-decorations {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0;
     pointer-events: none;
+    z-index: 0;
     overflow: hidden;
 }
 
-.stars-bg .star {
+/* 蘑菇装饰 */
+.mushroom {
     position: absolute;
-    background: #fff;
-    border-radius: 50%;
-    animation: twinkle var(--duration) ease-in-out infinite;
-    opacity: 0;
+    font-size: 40px;
+    animation: float 3s ease-in-out infinite;
+    opacity: 0.7;
 }
 
-.stars-bg .star.big {
-    box-shadow: 0 0 6px 2px rgba(255, 215, 0, 0.6);
-    background: #FFD700;
+.mushroom-1 {
+    bottom: 120px;
+    left: 5%;
+    animation-delay: 0s;
 }
 
-@keyframes twinkle {
-    0%, 100% { opacity: 0.2; transform: scale(0.8); }
-    50% { opacity: 1; transform: scale(1.2); }
+.mushroom-2 {
+    bottom: 140px;
+    left: 90%;
+    animation-delay: 1s;
+}
+
+.mushroom-3 {
+    bottom: 130px;
+    left: 45%;
+    animation-delay: 2s;
+}
+
+/* 金币装饰 */
+.coin {
+    position: absolute;
+    font-size: 32px;
+    animation: spin 2s linear infinite;
+    opacity: 0.8;
+}
+
+.coin-1 {
+    top: 15%;
+    left: 15%;
+    animation-delay: 0s;
+}
+
+.coin-2 {
+    top: 25%;
+    left: 80%;
+    animation-delay: 0.5s;
+}
+
+.coin-3 {
+    top: 40%;
+    left: 50%;
+    animation-delay: 1s;
+}
+
+/* 星星装饰 */
+.star {
+    position: absolute;
+    font-size: 36px;
+    animation: twinkle 2s ease-in-out infinite;
+    opacity: 0.9;
+}
+
+.star-1 {
+    top: 10%;
+    right: 10%;
+    animation-delay: 0s;
+}
+
+.star-2 {
+    top: 30%;
+    left: 8%;
+    animation-delay: 0.7s;
+}
+
+.star-3 {
+    top: 50%;
+    right: 20%;
+    animation-delay: 1.5s;
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-15px) rotate(5deg);
+    }
 }
 
-@keyframes shootingStar {
-    0% { transform: translateX(0) translateY(0); opacity: 1; }
-    100% { transform: translateX(300px) translateY(300px); opacity: 0; }
+@keyframes spin {
+    0% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.9;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2);
+    }
+}
+
+/* 管道装饰 */
+.pipe {
+    position: absolute;
+    bottom: 80px;
+    width: 60px;
+    height: 80px;
+    background: linear-gradient(90deg, #228B22 0%, #32CD32 50%, #228B22 100%);
+    border-radius: 0 0 10px 10px;
+    border: 3px solid #1E7B1E;
+}
+
+.pipe::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -10px;
+    right: -10px;
+    height: 20px;
+    background: linear-gradient(90deg, #32CD32 0%, #228B22 50%, #32CD32 100%);
+    border-radius: 15px 15px 0 0;
+    border: 3px solid #1E7B1E;
+    border-bottom: none;
+}
+
+.pipe-1 {
+    left: 3%;
+}
+
+.pipe-2 {
+    right: 5%;
+}
+
+/* 砖块装饰 */
+.brick {
+    position: absolute;
+    width: 40px;
+    height: 20px;
+    background: linear-gradient(180deg, #FF8C00 0%, #FF6347 100%);
+    border: 2px solid #8B4513;
+    box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.3), inset -2px -2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.brick::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.brick-1 {
+    top: 60%;
+    left: 3%;
+}
+
+.brick-2 {
+    top: 60%;
+    left: 6%;
+}
+
+.brick-3 {
+    top: 60%;
+    right: 5%;
+}
+
+body {
+    font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(180deg, #87CEEB 0%, #5BA3C6 50%, #4A90A4 100%);
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* 马里奥云朵背景 */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(ellipse 100px 60px at 10% 20%, white 0%, transparent 70%),
+        radial-gradient(ellipse 80px 50px at 15% 18%, white 0%, transparent 70%),
+        radial-gradient(ellipse 120px 70px at 40% 15%, white 0%, transparent 70%),
+        radial-gradient(ellipse 90px 55px at 45% 13%, white 0%, transparent 70%),
+        radial-gradient(ellipse 100px 60px at 70% 25%, white 0%, transparent 70%),
+        radial-gradient(ellipse 80px 50px at 75% 23%, white 0%, transparent 70%),
+        radial-gradient(ellipse 110px 65px at 90% 18%, white 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* 管道装饰 */
+body::after {
+    content: '';
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(180deg, #228B22 0%, #1E7B1E 100%);
+    z-index: 0;
+    pointer-events: none;
 }
 
 .app-container {
     max-width: 900px;
     margin: 20px auto;
-    background: linear-gradient(180deg, rgba(20, 20, 60, 0.95) 0%, rgba(30, 25, 70, 0.95) 100%);
+    background: linear-gradient(180deg, #FFF8DC 0%, #FFE4B5 100%);
     border-radius: 20px;
-    box-shadow: 0 0 40px rgba(138, 43, 226, 0.3), 0 0 80px rgba(75, 0, 130, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.3), 0 0 80px rgba(0, 0, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     overflow: hidden;
     position: relative;
     z-index: 1;
-    border: 1px solid rgba(138, 43, 226, 0.3);
+    border: 4px solid #8B4513;
 }
 
 /* 顶部导航栏 */
 .app-header {
-    background: linear-gradient(135deg, #1a0533 0%, #2d1b69 40%, #4a1a8a 70%, #1a0533 100%);
+    background: linear-gradient(180deg, #FF0000 0%, #CC0000 50%, #990000 100%);
     color: white;
     padding: 25px 20px 20px;
     position: relative;
     overflow: hidden;
+    border-bottom: 4px solid #8B4513;
 }
 
 .app-header::before {
@@ -81,8 +262,13 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(ellipse at 20% 50%, rgba(138, 43, 226, 0.3) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 50%, rgba(75, 0, 130, 0.3) 0%, transparent 50%);
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 20px,
+        rgba(0, 0, 0, 0.1) 20px,
+        rgba(0, 0, 0, 0.1) 40px
+    );
     pointer-events: none;
 }
 
@@ -97,8 +283,13 @@ body {
 
 .logo img {
     margin-right: 20px;
-    animation: float 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+    animation: bounce 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
 }
 
 .header-title {
@@ -110,29 +301,30 @@ body {
     font-size: 2em;
     margin-bottom: 5px;
     color: #FFD700;
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.2);
+    text-shadow: 3px 3px 0px #000, 0 0 20px rgba(255, 215, 0, 0.8);
     letter-spacing: 3px;
+    font-weight: bold;
 }
 
 .header-title p {
     font-size: 1em;
-    color: #b8b8ff;
-    text-shadow: 0 0 10px rgba(184, 184, 255, 0.3);
+    color: #FFF;
+    text-shadow: 2px 2px 0px #000;
 }
 
 .trophy img {
     margin-left: 20px;
-    animation: float 3s ease-in-out infinite 1.5s;
-    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+    animation: bounce 2s ease-in-out infinite 1s;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
 }
 
 /* 导航标签 */
 .app-nav {
     display: flex;
-    background: rgba(10, 10, 40, 0.6);
+    background: #228B22;
     border-radius: 12px;
     overflow: hidden;
-    border: 1px solid rgba(138, 43, 226, 0.3);
+    border: 3px solid #1E7B1E;
     position: relative;
     z-index: 1;
 }
@@ -143,9 +335,12 @@ body {
     padding: 12px 0;
     cursor: pointer;
     transition: all 0.3s;
-    border-right: 1px solid rgba(138, 43, 226, 0.2);
+    border-right: 2px solid #1E7B1E;
     font-size: 0.95em;
     position: relative;
+    color: #FFF;
+    font-weight: bold;
+    text-shadow: 1px 1px 0px #000;
 }
 
 .nav-item:last-child {
@@ -153,16 +348,16 @@ body {
 }
 
 .nav-item:hover {
-    background: rgba(138, 43, 226, 0.3);
+    background: #32CD32;
     color: #FFD700;
 }
 
 .nav-item.active {
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.2));
+    background: linear-gradient(180deg, #FFD700 0%, #FFA500 100%);
     font-weight: bold;
-    color: #FFD700;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-    box-shadow: inset 0 -3px 0 #FFD700;
+    color: #8B4513;
+    text-shadow: 1px 1px 0px #FFF;
+    box-shadow: inset 0 -3px 0 #8B4513;
 }
 
 /* 主要内容区域 */
@@ -172,20 +367,21 @@ body {
 
 /* 年级选择区域 */
 .grade-section {
-    background: linear-gradient(135deg, rgba(30, 25, 70, 0.6), rgba(50, 30, 100, 0.4));
+    background: linear-gradient(180deg, #87CEEB 0%, #5BA3C6 100%);
     border-radius: 15px;
     padding: 25px;
     margin-bottom: 20px;
-    border: 1px solid rgba(138, 43, 226, 0.2);
-    backdrop-filter: blur(10px);
+    border: 4px solid #4682B4;
+    box-shadow: 4px 4px 0px #000;
 }
 
 .grade-section h2 {
-    color: #FFD700;
+    color: #FF0000;
     margin-bottom: 20px;
     font-size: 1.8em;
     text-align: center;
-    text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+    text-shadow: 2px 2px 0px #FFF, 4px 4px 0px #000;
+    font-weight: bold;
 }
 
 .grade-buttons {
@@ -198,10 +394,10 @@ body {
 .grade-btn {
     padding: 15px 30px;
     font-size: 1.1em;
-    border: 2px solid rgba(138, 43, 226, 0.5);
+    border: 3px solid #8B4513;
     border-radius: 12px;
-    background: linear-gradient(135deg, rgba(30, 20, 60, 0.8), rgba(60, 30, 120, 0.6));
-    color: #e8e8ff;
+    background: linear-gradient(180deg, #FFD700 0%, #FFA500 100%);
+    color: #8B4513;
     cursor: pointer;
     transition: all 0.3s;
     min-width: 120px;
@@ -209,15 +405,15 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    backdrop-filter: blur(5px);
+    font-weight: bold;
+    text-shadow: 1px 1px 0px #FFF;
+    box-shadow: 3px 3px 0px #000;
 }
 
 .grade-btn:hover {
-    background: linear-gradient(135deg, rgba(138, 43, 226, 0.5), rgba(75, 0, 130, 0.5));
-    color: #FFD700;
+    background: linear-gradient(180deg, #FFA500 0%, #FF8C00 100%);
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(138, 43, 226, 0.4), 0 0 15px rgba(255, 215, 0, 0.2);
-    border-color: #FFD700;
+    box-shadow: 5px 5px 0px #000;
 }
 
 .btn-icon {
@@ -227,20 +423,21 @@ body {
 
 /* 一年级子目录选择 */
 .sub-grade-section {
-    background: linear-gradient(135deg, rgba(30, 25, 70, 0.6), rgba(50, 30, 100, 0.4));
+    background: linear-gradient(180deg, #90EE90 0%, #32CD32 100%);
     border-radius: 15px;
     padding: 25px;
     margin-bottom: 20px;
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    backdrop-filter: blur(10px);
+    border: 4px solid #228B22;
+    box-shadow: 4px 4px 0px #000;
 }
 
 .sub-grade-section h2 {
-    color: #FFD700;
+    color: #FF0000;
     margin-bottom: 20px;
     font-size: 1.8em;
     text-align: center;
-    text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+    text-shadow: 2px 2px 0px #FFF, 4px 4px 0px #000;
+    font-weight: bold;
 }
 
 .sub-grade-buttons {
@@ -254,10 +451,10 @@ body {
 .sub-grade-btn {
     padding: 25px 35px;
     font-size: 1.1em;
-    border: 2px solid rgba(255, 215, 0, 0.4);
+    border: 3px solid #8B4513;
     border-radius: 15px;
-    background: linear-gradient(135deg, rgba(30, 20, 60, 0.9), rgba(60, 30, 120, 0.7));
-    color: #e8e8ff;
+    background: linear-gradient(180deg, #FFD700 0%, #FFA500 100%);
+    color: #8B4513;
     cursor: pointer;
     transition: all 0.3s;
     min-width: 180px;
@@ -265,15 +462,15 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    backdrop-filter: blur(5px);
+    font-weight: bold;
+    text-shadow: 1px 1px 0px #FFF;
+    box-shadow: 3px 3px 0px #000;
 }
 
 .sub-grade-btn:hover {
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.2));
-    color: #FFD700;
+    background: linear-gradient(180deg, #FFA500 0%, #FF8C00 100%);
     transform: translateY(-5px);
-    box-shadow: 0 12px 35px rgba(255, 215, 0, 0.3), 0 0 20px rgba(255, 215, 0, 0.15);
-    border-color: #FFD700;
+    box-shadow: 5px 5px 0px #000;
 }
 
 .sub-btn-icon {
@@ -289,7 +486,7 @@ body {
 .sub-btn-desc {
     font-size: 0.9em;
     opacity: 0.8;
-    color: #b8b8ff;
+    color: #8B4513;
 }
 
 .back-to-grade-btn {
@@ -297,27 +494,30 @@ body {
     margin: 0 auto;
     padding: 12px 30px;
     font-size: 1em;
-    border: 1px solid rgba(138, 43, 226, 0.4);
+    border: 3px solid #8B4513;
     border-radius: 10px;
-    background: rgba(30, 25, 70, 0.6);
-    color: #b8b8ff;
+    background: linear-gradient(180deg, #FF6347 0%, #FF4500 100%);
+    color: #FFF;
     cursor: pointer;
     transition: all 0.3s;
+    font-weight: bold;
+    text-shadow: 1px 1px 0px #000;
+    box-shadow: 3px 3px 0px #000;
 }
 
 .back-to-grade-btn:hover {
-    background: rgba(138, 43, 226, 0.3);
-    color: #FFD700;
+    background: linear-gradient(180deg, #FF4500 0%, #DC143C 100%);
     transform: translateX(-5px);
 }
 
 /* 练习区域 */
 .practice-section {
-    background: linear-gradient(135deg, rgba(30, 25, 70, 0.6), rgba(50, 30, 100, 0.4));
+    background: linear-gradient(180deg, #87CEEB 0%, #5BA3C6 100%);
     border-radius: 15px;
     padding: 25px;
     margin-bottom: 20px;
-    border: 1px solid rgba(138, 43, 226, 0.2);
+    border: 4px solid #4682B4;
+    box-shadow: 4px 4px 0px #000;
 }
 
 /* 统计信息 */
@@ -330,17 +530,17 @@ body {
 
 .stat-card {
     flex: 1;
-    background: linear-gradient(135deg, rgba(138, 43, 226, 0.3), rgba(75, 0, 130, 0.3));
-    color: white;
+    background: linear-gradient(180deg, #FFD700 0%, #FFA500 100%);
+    color: #8B4513;
     border-radius: 12px;
     padding: 20px;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow: 3px 3px 0px #000;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    border: 1px solid rgba(138, 43, 226, 0.3);
+    border: 3px solid #8B4513;
 }
 
 .stat-icon {
@@ -351,24 +551,25 @@ body {
 .stat-number {
     font-size: 2.5em;
     font-weight: bold;
-    color: #FFD700;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+    color: #FF0000;
+    text-shadow: 2px 2px 0px #FFF;
 }
 
 .stat-label {
     font-size: 1em;
-    opacity: 0.8;
-    color: #b8b8ff;
+    font-weight: bold;
+    color: #8B4513;
+    text-shadow: 1px 1px 0px #FFF;
 }
 
 /* 题目区域 */
 .questions-container {
-    background: rgba(15, 10, 40, 0.5);
+    background: #FFF8DC;
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 30px;
-    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(138, 43, 226, 0.15);
+    box-shadow: 4px 4px 0px #000;
+    border: 3px solid #8B4513;
 }
 
 .question {
@@ -377,14 +578,15 @@ body {
     justify-content: space-between;
     padding: 15px;
     margin-bottom: 10px;
-    background: linear-gradient(135deg, rgba(40, 30, 80, 0.5), rgba(60, 40, 100, 0.3));
+    background: linear-gradient(180deg, #FFF 0%, #F5F5DC 100%);
     border-radius: 8px;
-    border-left: 3px solid #8a2be2;
+    border-left: 4px solid #FF0000;
     transition: all 0.3s;
+    border: 2px solid #8B4513;
 }
 
 .question:hover {
-    background: linear-gradient(135deg, rgba(60, 40, 120, 0.5), rgba(80, 50, 140, 0.3));
+    background: linear-gradient(180deg, #F5F5DC 0%, #FFE4B5 100%);
     border-left-color: #FFD700;
 }
 
@@ -401,13 +603,14 @@ body {
     font-size: 0.8em;
     line-height: 1.2;
     padding: 0 2px;
-    color: #ffd700;
+    color: #FF0000;
+    font-weight: bold;
 }
 
 .fraction .fraction-line {
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, transparent, #ffd700, transparent);
+    background: #000;
     margin: 1px 0;
 }
 
@@ -415,52 +618,55 @@ body {
     font-size: 0.8em;
     line-height: 1.2;
     padding: 0 2px;
-    color: #ffd700;
+    color: #FF0000;
+    font-weight: bold;
 }
 
 .question-number {
     font-weight: bold;
-    color: #FFD700;
+    color: #FF0000;
     margin-right: 15px;
     min-width: 30px;
-    text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+    text-shadow: 1px 1px 0px #FFF;
 }
 
 .question-text {
     flex: 1;
     font-size: 1.2em;
-    color: #e8e8ff;
+    color: #000;
+    font-weight: bold;
 }
 
 .answer-input {
     width: 100px;
     padding: 8px;
     font-size: 1.1em;
-    border: 2px solid rgba(138, 43, 226, 0.4);
+    border: 3px solid #8B4513;
     border-radius: 8px;
     text-align: center;
     transition: all 0.3s;
-    background: rgba(20, 15, 50, 0.6);
-    color: #FFD700;
+    background: #FFF;
+    color: #000;
     font-weight: bold;
+    box-shadow: 2px 2px 0px #000;
 }
 
 .answer-input:focus {
     outline: none;
     border-color: #FFD700;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3), inset 0 0 10px rgba(255, 215, 0, 0.1);
+    box-shadow: 3px 3px 0px #000;
 }
 
 .answer-input.correct {
-    border-color: #00ff88;
-    background: rgba(0, 255, 136, 0.1);
-    box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+    border-color: #32CD32;
+    background: #90EE90;
+    box-shadow: 2px 2px 0px #000;
 }
 
 .answer-input.incorrect {
-    border-color: #ff4466;
-    background: rgba(255, 68, 102, 0.1);
-    box-shadow: 0 0 10px rgba(255, 68, 102, 0.3);
+    border-color: #FF0000;
+    background: #FF6347;
+    box-shadow: 2px 2px 0px #000;
 }
 
 /* 操作按钮 */
@@ -472,104 +678,111 @@ body {
 }
 
 .submit-btn {
-    background: linear-gradient(135deg, #8a2be2, #6a1b9a);
+    background: linear-gradient(180deg, #32CD32 0%, #228B22 100%);
     color: white;
     padding: 12px 30px;
-    border: none;
+    border: 3px solid #1E7B1E;
     border-radius: 10px;
     font-size: 1.1em;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
-    border: 1px solid rgba(200, 130, 255, 0.3);
+    box-shadow: 3px 3px 0px #000;
+    font-weight: bold;
+    text-shadow: 1px 1px 0px #000;
 }
 
 .submit-btn:hover {
-    background: linear-gradient(135deg, #9b3de8, #7b2baa);
+    background: linear-gradient(180deg, #228B22 0%, #1E7B1E 100%);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(138, 43, 226, 0.5);
+    box-shadow: 5px 5px 0px #000;
 }
 
 .reset-btn {
-    background: linear-gradient(135deg, #FF8C00, #FF6600);
-    color: white;
+    background: linear-gradient(180deg, #FFD700 0%, #FFA500 100%);
+    color: #8B4513;
     padding: 12px 30px;
-    border: none;
+    border: 3px solid #8B4513;
     border-radius: 10px;
     font-size: 1.1em;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
-    border: 1px solid rgba(255, 200, 100, 0.3);
+    box-shadow: 3px 3px 0px #000;
+    font-weight: bold;
+    text-shadow: 1px 1px 0px #FFF;
 }
 
 .reset-btn:hover {
-    background: linear-gradient(135deg, #FFa020, #FF7700);
+    background: linear-gradient(180deg, #FFA500 0%, #FF8C00 100%);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255, 140, 0, 0.4);
+    box-shadow: 5px 5px 0px #000;
 }
 
 .back-btn {
-    background: linear-gradient(135deg, rgba(100, 100, 150, 0.5), rgba(80, 80, 120, 0.5));
-    color: #b8b8ff;
+    background: linear-gradient(180deg, #87CEEB 0%, #5BA3C6 100%);
+    color: #000;
     padding: 12px 30px;
-    border: 1px solid rgba(138, 43, 226, 0.3);
+    border: 3px solid #4682B4;
     border-radius: 10px;
     font-size: 1.1em;
     cursor: pointer;
     transition: all 0.3s;
+    font-weight: bold;
+    text-shadow: 1px 1px 0px #FFF;
+    box-shadow: 3px 3px 0px #000;
 }
 
 .back-btn:hover {
-    background: linear-gradient(135deg, rgba(138, 43, 226, 0.4), rgba(100, 30, 180, 0.4));
-    color: #FFD700;
+    background: linear-gradient(180deg, #5BA3C6 0%, #4682B4 100%);
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+    box-shadow: 5px 5px 0px #000;
 }
 
 .clear-data-btn {
-    background: linear-gradient(135deg, #cc2244, #991133);
+    background: linear-gradient(180deg, #FF0000 0%, #CC0000 100%);
     color: white;
     padding: 12px 30px;
-    border: none;
+    border: 3px solid #990000;
     border-radius: 10px;
     font-size: 1.1em;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(204, 34, 68, 0.3);
-    border: 1px solid rgba(255, 100, 130, 0.3);
+    box-shadow: 3px 3px 0px #000;
+    font-weight: bold;
+    text-shadow: 1px 1px 0px #000;
 }
 
 .clear-data-btn:hover {
-    background: linear-gradient(135deg, #dd3355, #aa2244);
+    background: linear-gradient(180deg, #CC0000 0%, #990000 100%);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(204, 34, 68, 0.4);
+    box-shadow: 5px 5px 0px #000;
 }
 
 /* 错题本区域 */
 .wrong-section {
-    background: linear-gradient(135deg, rgba(30, 25, 70, 0.6), rgba(50, 30, 100, 0.4));
+    background: linear-gradient(180deg, #FF6347 0%, #FF4500 100%);
     border-radius: 15px;
     padding: 25px;
     margin-top: 20px;
-    border: 1px solid rgba(138, 43, 226, 0.2);
+    border: 4px solid #DC143C;
+    box-shadow: 4px 4px 0px #000;
 }
 
 .wrong-section h2 {
-    color: #ff4466;
+    color: #FFF;
     margin-bottom: 20px;
     font-size: 1.8em;
     text-align: center;
-    text-shadow: 0 0 15px rgba(255, 68, 102, 0.4);
+    text-shadow: 2px 2px 0px #000;
+    font-weight: bold;
 }
 
 .wrong-container {
-    background: rgba(15, 10, 40, 0.5);
+    background: #FFF8DC;
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 30px;
-    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 68, 102, 0.15);
+    box-shadow: 4px 4px 0px #000;
+    border: 3px solid #8B4513;
     max-height: 400px;
     overflow-y: auto;
 }
@@ -577,56 +790,62 @@ body {
 .grade-wrong-section {
     margin-bottom: 30px;
     padding: 20px;
-    background: linear-gradient(135deg, rgba(60, 20, 30, 0.4), rgba(80, 30, 40, 0.3));
+    background: linear-gradient(180deg, #FFE4B5 0%, #FFD700 100%);
     border-radius: 10px;
-    border-left: 4px solid #ff4466;
+    border-left: 4px solid #FF0000;
+    border: 2px solid #8B4513;
 }
 
 .grade-wrong-section h3 {
-    color: #ff4466;
+    color: #FF0000;
     margin-bottom: 15px;
+    font-weight: bold;
 }
 
 .wrong-answer-info {
     margin-left: 45px;
     margin-top: 5px;
     font-size: 0.9em;
-    color: #b8b8ff;
+    color: #000;
 }
 
 .user-answer {
     margin-right: 20px;
-    color: #ff4466;
+    color: #FF0000;
+    font-weight: bold;
 }
 
 .correct-answer {
-    color: #00ff88;
+    color: #32CD32;
+    font-weight: bold;
 }
 
 /* 练习历史区域 */
 .history-section {
-    background: linear-gradient(135deg, rgba(30, 25, 70, 0.6), rgba(50, 30, 100, 0.4));
+    background: linear-gradient(180deg, #87CEEB 0%, #5BA3C6 100%);
     border-radius: 15px;
     padding: 25px;
     margin-top: 20px;
-    border: 1px solid rgba(138, 43, 226, 0.2);
+    border: 4px solid #4682B4;
+    box-shadow: 4px 4px 0px #000;
 }
 
 .history-section h2 {
-    color: #00bfff;
+    color: #FF0000;
     margin-bottom: 20px;
     font-size: 1.8em;
     text-align: center;
-    text-shadow: 0 0 15px rgba(0, 191, 255, 0.4);
+    text-shadow: 2px 2px 0px #FFF, 4px 4px 0px #000;
+    font-weight: bold;
 }
 
 .history-container {
-    background: rgba(15, 10, 40, 0.5);
+    background: #FFF8DC;
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 30px;
-    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(0, 191, 255, 0.15);
+    box-shadow: 4px 4px 0px #000;
+    border: 3px solid #8B4513;
     max-height: 400px;
     overflow-y: auto;
 }
@@ -634,58 +853,62 @@ body {
 .history-item {
     margin-bottom: 20px;
     padding: 15px;
-    background: linear-gradient(135deg, rgba(30, 40, 80, 0.4), rgba(40, 50, 100, 0.3));
+    background: linear-gradient(180deg, #FFF 0%, #F5F5DC 100%);
     border-radius: 10px;
-    border-left: 4px solid #00bfff;
+    border-left: 4px solid #FFD700;
+    border: 2px solid #8B4513;
 }
 
 .history-item h3 {
-    color: #00bfff;
+    color: #FF0000;
     margin-bottom: 10px;
     font-size: 1.2em;
+    font-weight: bold;
 }
 
 .history-item p {
     margin: 5px 0;
-    color: #b8b8ff;
+    color: #000;
 }
 
 .history-item .history-date {
     font-size: 0.9em;
-    color: #8888bb;
+    color: #666;
     margin-top: 10px;
 }
 
 .history-item .history-score {
     font-weight: bold;
-    color: #00ff88;
-    text-shadow: 0 0 5px rgba(0, 255, 136, 0.3);
+    color: #32CD32;
+    text-shadow: 1px 1px 0px #FFF;
 }
 
 /* 我的奖励区域 */
 .rewards-section {
-    background: linear-gradient(135deg, rgba(30, 25, 70, 0.6), rgba(50, 30, 100, 0.4));
+    background: linear-gradient(180deg, #90EE90 0%, #32CD32 100%);
     border-radius: 15px;
     padding: 25px;
     margin-top: 20px;
-    border: 1px solid rgba(138, 43, 226, 0.2);
+    border: 4px solid #228B22;
+    box-shadow: 4px 4px 0px #000;
 }
 
 .rewards-section h2 {
-    color: #FFD700;
+    color: #FF0000;
     margin-bottom: 20px;
     font-size: 1.8em;
     text-align: center;
-    text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+    text-shadow: 2px 2px 0px #FFF, 4px 4px 0px #000;
+    font-weight: bold;
 }
 
 .rewards-container {
-    background: rgba(15, 10, 40, 0.5);
+    background: #FFF8DC;
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 30px;
-    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 215, 0, 0.15);
+    box-shadow: 4px 4px 0px #000;
+    border: 3px solid #8B4513;
 }
 
 .rewards-summary {
@@ -697,16 +920,16 @@ body {
 
 .reward-card {
     flex: 1;
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 165, 0, 0.1));
+    background: linear-gradient(180deg, #FFD700 0%, #FFA500 100%);
     border-radius: 12px;
     padding: 20px;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.15);
+    box-shadow: 3px 3px 0px #000;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    border: 1px solid rgba(255, 215, 0, 0.3);
+    border: 3px solid #8B4513;
 }
 
 .reward-icon {
@@ -716,13 +939,15 @@ body {
 .reward-value {
     font-size: 2.5em;
     font-weight: bold;
-    color: #FFD700;
-    text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    color: #FF0000;
+    text-shadow: 2px 2px 0px #FFF;
 }
 
 .reward-label {
     font-size: 1em;
-    color: #b8b8ff;
+    color: #8B4513;
+    font-weight: bold;
+    text-shadow: 1px 1px 0px #FFF;
 }
 
 .rewards-achievements,
@@ -732,10 +957,11 @@ body {
 
 .rewards-achievements h3,
 .rewards-badges h3 {
-    color: #FFD700;
+    color: #FF0000;
     margin-bottom: 15px;
     font-size: 1.5em;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    text-shadow: 2px 2px 0px #FFF;
+    font-weight: bold;
 }
 
 .achievements-container,
@@ -747,25 +973,26 @@ body {
 
 .achievement-item,
 .badge-item {
-    background: linear-gradient(135deg, rgba(40, 30, 80, 0.6), rgba(60, 40, 100, 0.4));
+    background: linear-gradient(180deg, #FFF 0%, #F5F5DC 100%);
     border-radius: 10px;
     padding: 15px;
     text-align: center;
-    border: 2px solid rgba(255, 215, 0, 0.3);
+    border: 3px solid #8B4513;
     transition: all 0.3s;
+    box-shadow: 3px 3px 0px #000;
 }
 
 .achievement-item:hover,
 .badge-item:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(138, 43, 226, 0.3), 0 0 15px rgba(255, 215, 0, 0.2);
+    box-shadow: 5px 5px 0px #000;
 }
 
 .achievement-item.locked,
 .badge-item.locked {
-    background: rgba(30, 25, 50, 0.4);
-    border-color: rgba(100, 100, 150, 0.3);
-    opacity: 0.5;
+    background: #D3D3D3;
+    border-color: #808080;
+    opacity: 0.6;
 }
 
 .achievement-icon,
@@ -777,39 +1004,41 @@ body {
 .achievement-name,
 .badge-name {
     font-weight: bold;
-    color: #e8e8ff;
+    color: #000;
     margin-bottom: 5px;
 }
 
 .achievement-desc,
 .badge-desc {
     font-size: 0.9em;
-    color: #8888bb;
+    color: #666;
 }
 
 .achievement-progress {
     margin-top: 10px;
     font-size: 0.85em;
-    color: #FFD700;
+    color: #FF0000;
+    font-weight: bold;
 }
 
 /* 滚动条美化 */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-    background: rgba(15, 10, 40, 0.5);
-    border-radius: 4px;
+    background: #8B4513;
+    border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #8a2be2, #6a1b9a);
-    border-radius: 4px;
+    background: linear-gradient(180deg, #FFD700 0%, #FFA500 100%);
+    border-radius: 6px;
+    border: 2px solid #8B4513;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, #9b3de8, #7b2baa);
+    background: linear-gradient(180deg, #FFA500 0%, #FF8C00 100%);
 }
 
 /* 响应式设计 */
@@ -862,25 +1091,28 @@ body {
 
 /* 多人比赛模式 */
 .battle-section {
-    background: linear-gradient(135deg, rgba(30, 25, 70, 0.6), rgba(50, 30, 100, 0.4));
+    background: linear-gradient(180deg, #FF6347 0%, #FF4500 100%);
     border-radius: 15px;
     padding: 25px;
-    border: 1px solid rgba(138, 43, 226, 0.2);
+    border: 4px solid #DC143C;
+    box-shadow: 4px 4px 0px #000;
 }
 
 .battle-setup h2 {
-    color: #FFD700;
+    color: #FFF;
     font-size: 1.8em;
     text-align: center;
     margin-bottom: 10px;
-    text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+    text-shadow: 2px 2px 0px #000;
+    font-weight: bold;
 }
 
 .battle-desc {
     text-align: center;
-    color: #b8b8ff;
+    color: #FFF;
     margin-bottom: 25px;
     font-size: 1.05em;
+    text-shadow: 1px 1px 0px #000;
 }
 
 .battle-config {
@@ -897,10 +1129,12 @@ body {
 }
 
 .config-item label {
-    color: #b8b8ff;
+    color: #FFF;
     font-size: 1em;
     min-width: 80px;
     text-align: right;
+    font-weight: bold;
+    text-shadow: 1px 1px 0px #000;
 }
 
 .player-count-btns,
@@ -915,30 +1149,34 @@ body {
 .battle-grade-btn,
 .qcount-btn {
     padding: 8px 20px;
-    border: 2px solid rgba(138, 43, 226, 0.4);
+    border: 3px solid #8B4513;
     border-radius: 8px;
-    background: linear-gradient(135deg, rgba(30, 20, 60, 0.8), rgba(60, 30, 120, 0.6));
-    color: #b8b8ff;
+    background: linear-gradient(180deg, #FFD700 0%, #FFA500 100%);
+    color: #8B4513;
     cursor: pointer;
     transition: all 0.3s;
     font-size: 0.95em;
+    font-weight: bold;
+    text-shadow: 1px 1px 0px #FFF;
+    box-shadow: 2px 2px 0px #000;
 }
 
 .count-btn:hover,
 .battle-grade-btn:hover,
 .qcount-btn:hover {
-    border-color: #FFD700;
-    color: #FFD700;
+    background: linear-gradient(180deg, #FFA500 0%, #FF8C00 100%);
+    transform: translateY(-2px);
+    box-shadow: 3px 3px 0px #000;
 }
 
 .count-btn.active,
 .battle-grade-btn.active,
 .qcount-btn.active {
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.2));
-    border-color: #FFD700;
-    color: #FFD700;
-    font-weight: bold;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+    background: linear-gradient(180deg, #32CD32 0%, #228B22 100%);
+    border-color: #1E7B1E;
+    color: #FFF;
+    text-shadow: 1px 1px 0px #000;
+    box-shadow: 2px 2px 0px #000;
 }
 
 .player-names {
@@ -947,9 +1185,10 @@ body {
     gap: 12px;
     margin-bottom: 25px;
     padding: 20px;
-    background: rgba(15, 10, 40, 0.5);
+    background: #FFF8DC;
     border-radius: 12px;
-    border: 1px solid rgba(138, 43, 226, 0.15);
+    border: 3px solid #8B4513;
+    box-shadow: 4px 4px 0px #000;
 }
 
 .player-name-input {
@@ -972,38 +1211,40 @@ body {
 .pname-input {
     flex: 1;
     padding: 10px 15px;
-    border: 2px solid rgba(138, 43, 226, 0.4);
+    border: 3px solid #8B4513;
     border-radius: 8px;
-    background: rgba(20, 15, 50, 0.6);
-    color: #e8e8ff;
+    background: #FFF;
+    color: #000;
     font-size: 1em;
     transition: all 0.3s;
+    box-shadow: 2px 2px 0px #000;
 }
 
 .pname-input:focus {
     outline: none;
     border-color: #FFD700;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+    box-shadow: 3px 3px 0px #000;
 }
 
 .battle-start-btn {
-    background: linear-gradient(135deg, #FFD700, #FFA500);
-    color: #1a0533;
+    background: linear-gradient(180deg, #32CD32 0%, #228B22 100%);
+    color: #FFF;
     padding: 14px 40px;
-    border: none;
+    border: 3px solid #1E7B1E;
     border-radius: 12px;
     font-size: 1.2em;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+    box-shadow: 3px 3px 0px #000;
     letter-spacing: 2px;
+    text-shadow: 1px 1px 0px #000;
 }
 
 .battle-start-btn:hover {
-    background: linear-gradient(135deg, #FFE44D, #FFB733);
+    background: linear-gradient(180deg, #228B22 0%, #1E7B1E 100%);
     transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(255, 215, 0, 0.5);
+    box-shadow: 5px 5px 0px #000;
 }
 
 /* 比赛进行中 */
@@ -1015,15 +1256,16 @@ body {
 }
 
 .battle-title {
-    color: #FFD700;
+    color: #FF0000;
     font-size: 1.5em;
-    text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+    text-shadow: 2px 2px 0px #FFF, 4px 4px 0px #000;
+    font-weight: bold;
 }
 
 .battle-timer {
     font-size: 1.5em;
-    color: #00bfff;
-    text-shadow: 0 0 10px rgba(0, 191, 255, 0.4);
+    color: #FFD700;
+    text-shadow: 2px 2px 0px #000;
     font-weight: bold;
 }
 
@@ -1040,32 +1282,34 @@ body {
     padding: 12px;
     border-radius: 10px;
     text-align: center;
-    border: 2px solid rgba(138, 43, 226, 0.3);
-    background: rgba(20, 15, 50, 0.5);
+    border: 3px solid #8B4513;
+    background: #FFF8DC;
     transition: all 0.3s;
+    box-shadow: 3px 3px 0px #000;
 }
 
 .battle-player-status.current {
     border-color: #FFD700;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.05));
+    box-shadow: 5px 5px 0px #000;
+    background: linear-gradient(180deg, #FFD700 0%, #FFA500 100%);
 }
 
 .battle-player-status .bps-name {
     font-weight: bold;
     font-size: 1em;
     margin-bottom: 5px;
+    color: #000;
 }
 
 .battle-player-status .bps-score {
     font-size: 1.8em;
     font-weight: bold;
-    color: #FFD700;
+    color: #FF0000;
 }
 
 .battle-player-status .bps-progress {
     font-size: 0.85em;
-    color: #8888bb;
+    color: #666;
     margin-top: 3px;
 }
 
@@ -1074,38 +1318,41 @@ body {
     padding: 15px;
     margin-bottom: 20px;
     border-radius: 12px;
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.05));
-    border: 1px solid rgba(255, 215, 0, 0.3);
+    background: linear-gradient(180deg, #FFD700 0%, #FFA500 100%);
+    border: 3px solid #8B4513;
+    box-shadow: 4px 4px 0px #000;
 }
 
 .battle-current-player .bcp-label {
     font-size: 0.9em;
-    color: #8888bb;
+    color: #8B4513;
     margin-bottom: 5px;
+    font-weight: bold;
 }
 
 .battle-current-player .bcp-name {
     font-size: 1.5em;
     font-weight: bold;
-    color: #FFD700;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+    color: #FF0000;
+    text-shadow: 2px 2px 0px #FFF;
 }
 
 .battle-question-area {
-    background: rgba(15, 10, 40, 0.5);
+    background: #FFF8DC;
     border-radius: 12px;
     padding: 30px;
     margin-bottom: 20px;
-    border: 1px solid rgba(138, 43, 226, 0.2);
+    border: 3px solid #8B4513;
     text-align: center;
+    box-shadow: 4px 4px 0px #000;
 }
 
 .battle-question-display {
     font-size: 3em;
     font-weight: bold;
-    color: #e8e8ff;
+    color: #FF0000;
     margin-bottom: 15px;
-    text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+    text-shadow: 2px 2px 0px #FFF;
 }
 
 .battle-progress {
@@ -1119,27 +1366,27 @@ body {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: rgba(138, 43, 226, 0.3);
-    border: 1px solid rgba(138, 43, 226, 0.5);
+    background: #D3D3D3;
+    border: 2px solid #808080;
     transition: all 0.3s;
 }
 
 .battle-progress-dot.correct {
-    background: #00ff88;
-    border-color: #00ff88;
-    box-shadow: 0 0 6px rgba(0, 255, 136, 0.5);
+    background: #32CD32;
+    border-color: #228B22;
+    box-shadow: 2px 2px 0px #000;
 }
 
 .battle-progress-dot.wrong {
-    background: #ff4466;
-    border-color: #ff4466;
-    box-shadow: 0 0 6px rgba(255, 68, 102, 0.5);
+    background: #FF0000;
+    border-color: #CC0000;
+    box-shadow: 2px 2px 0px #000;
 }
 
 .battle-progress-dot.current {
     background: #FFD700;
-    border-color: #FFD700;
-    box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+    border-color: #8B4513;
+    box-shadow: 2px 2px 0px #000;
     transform: scale(1.3);
 }
 
@@ -1152,19 +1399,20 @@ body {
     width: 200px;
     padding: 15px;
     font-size: 1.5em;
-    border: 2px solid rgba(138, 43, 226, 0.4);
+    border: 3px solid #8B4513;
     border-radius: 12px;
     text-align: center;
-    background: rgba(20, 15, 50, 0.6);
-    color: #FFD700;
+    background: #FFF;
+    color: #000;
     font-weight: bold;
     transition: all 0.3s;
+    box-shadow: 3px 3px 0px #000;
 }
 
 .battle-answer-input:focus {
     outline: none;
     border-color: #FFD700;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    box-shadow: 4px 4px 0px #000;
 }
 
 .battle-feedback {
@@ -1176,22 +1424,23 @@ body {
 }
 
 .battle-feedback.correct {
-    color: #00ff88;
-    text-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+    color: #32CD32;
+    text-shadow: 2px 2px 0px #FFF;
 }
 
 .battle-feedback.wrong {
-    color: #ff4466;
-    text-shadow: 0 0 10px rgba(255, 68, 102, 0.4);
+    color: #FF0000;
+    text-shadow: 2px 2px 0px #FFF;
 }
 
 /* 比赛结果 */
 .result-title {
-    color: #FFD700;
+    color: #FF0000;
     font-size: 2em;
     text-align: center;
     margin-bottom: 25px;
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    text-shadow: 2px 2px 0px #FFF, 4px 4px 0px #000;
+    font-weight: bold;
 }
 
 .result-podium {
@@ -1209,30 +1458,28 @@ body {
     padding: 20px 25px;
     min-width: 140px;
     transition: all 0.3s;
+    border: 3px solid #8B4513;
+    box-shadow: 4px 4px 0px #000;
 }
 
 .podium-item.first {
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.15));
-    border: 2px solid #FFD700;
-    box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+    background: linear-gradient(180deg, #FFD700 0%, #FFA500 100%);
     transform: translateY(-10px);
 }
 
 .podium-item.second {
-    background: linear-gradient(135deg, rgba(192, 192, 192, 0.15), rgba(169, 169, 169, 0.1));
-    border: 2px solid #C0C0C0;
-    box-shadow: 0 0 15px rgba(192, 192, 192, 0.2);
+    background: linear-gradient(180deg, #C0C0C0 0%, #A9A9A9 100%);
+    border: 3px solid #808080;
 }
 
 .podium-item.third {
-    background: linear-gradient(135deg, rgba(205, 127, 50, 0.15), rgba(184, 115, 51, 0.1));
-    border: 2px solid #CD7F32;
-    box-shadow: 0 0 15px rgba(205, 127, 50, 0.2);
+    background: linear-gradient(180deg, #CD7F32 0%, #B8860B 100%);
+    border: 3px solid #8B4513;
 }
 
 .podium-item.other {
-    background: rgba(30, 25, 70, 0.4);
-    border: 2px solid rgba(138, 43, 226, 0.2);
+    background: #FFF8DC;
+    border: 3px solid #8B4513;
 }
 
 .podium-rank {
@@ -1243,28 +1490,29 @@ body {
 .podium-name {
     font-size: 1.2em;
     font-weight: bold;
-    color: #e8e8ff;
+    color: #000;
     margin-bottom: 8px;
 }
 
 .podium-score {
     font-size: 1.8em;
     font-weight: bold;
-    color: #FFD700;
+    color: #FF0000;
 }
 
 .podium-detail {
     font-size: 0.85em;
-    color: #8888bb;
+    color: #666;
     margin-top: 5px;
 }
 
 .result-details {
-    background: rgba(15, 10, 40, 0.5);
+    background: #FFF8DC;
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 25px;
-    border: 1px solid rgba(138, 43, 226, 0.15);
+    border: 3px solid #8B4513;
+    box-shadow: 4px 4px 0px #000;
 }
 
 .result-detail-row {
@@ -1272,7 +1520,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 12px 15px;
-    border-bottom: 1px solid rgba(138, 43, 226, 0.1);
+    border-bottom: 2px solid #8B4513;
 }
 
 .result-detail-row:last-child {
@@ -1284,13 +1532,13 @@ body {
     align-items: center;
     gap: 10px;
     font-weight: bold;
-    color: #e8e8ff;
+    color: #000;
 }
 
 .result-detail-stats {
     display: flex;
     gap: 20px;
-    color: #b8b8ff;
+    color: #000;
     font-size: 0.95em;
 }
 

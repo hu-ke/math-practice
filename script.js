@@ -21,7 +21,8 @@ createStars();
 
 // 全局变量
 let currentGrade = 0;
-let currentSubGrade = ''; // 存储一年级子目录选择
+let currentSubGrade = ''; // 存储子目录选择（basic/comprehensive）
+let currentSubSubGrade = ''; // 存储二级子目录选择（within10/within20/currency）
 let gradeQuestions = {}; // 存储每个年级的题目
 let gradeTimers = {}; // 存储每个年级的计时器
 let gradeStartTimes = {}; // 存储每个年级的开始时间
@@ -105,13 +106,121 @@ window.onload = function() {
         btn.addEventListener('click', function() {
             const subGrade = this.getAttribute('data-subgrade');
             currentSubGrade = subGrade;
-            startPractice(currentGrade);
+
+            // 如果是一年级基础练习，显示一级子目录
+            if (currentGrade === 1 && subGrade === 'basic') {
+                showSubSubGradeSection();
+            } else if (currentGrade === 2 && subGrade === 'basic') {
+                // 如果是二年级基础练习，显示二级子目录
+                showSubSubGradeSection2();
+            } else if (currentGrade === 3 && subGrade === 'basic') {
+                // 如果是三年级基础练习，显示三级子目录
+                showSubSubGradeSection3();
+            } else if (currentGrade === 4 && subGrade === 'basic') {
+                // 如果是四年级基础练习，显示四级子目录
+                showSubSubGradeSection4();
+            } else if (currentGrade === 5 && subGrade === 'basic') {
+                // 如果是五年级基础练习，显示五级子目录
+                showSubSubGradeSection5();
+            } else {
+                startPractice(currentGrade);
+            }
         });
     });
     
     // 为返回年级选择按钮添加事件监听
     document.getElementById('back-to-grade-btn').addEventListener('click', function() {
         hideSubGradeSection();
+    });
+
+    // 为二级子目录按钮添加事件监听
+    document.querySelectorAll('#sub-sub-grade-section .sub-grade-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const subSubGrade = this.getAttribute('data-subgrade');
+            currentSubSubGrade = subSubGrade;
+            currentSubGrade = 'basic';
+            console.log('二级子目录选择:', subSubGrade);
+            
+            // 直接生成并显示对应类型的题目
+            generateAndShowQuestions(1, subSubGrade);
+        });
+    });
+
+    // 为返回子目录按钮添加事件监听
+    document.getElementById('back-to-sub-grade-btn').addEventListener('click', function() {
+        hideSubSubGradeSection();
+    });
+
+    // 为二年级二级子目录按钮添加事件监听
+    document.querySelectorAll('#sub-sub-grade-section-2 .sub-grade-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const subSubGrade = this.getAttribute('data-subgrade');
+            currentSubSubGrade = subSubGrade;
+            currentSubGrade = 'basic';
+            console.log('二年级二级子目录选择:', subSubGrade);
+            
+            // 直接生成并显示对应类型的题目
+            generateAndShowQuestions(2, subSubGrade);
+        });
+    });
+
+    // 为二年级返回子目录按钮添加事件监听
+    document.getElementById('back-to-sub-grade-btn-2').addEventListener('click', function() {
+        hideSubSubGradeSection2();
+    });
+
+    // 为三年级二级子目录按钮添加事件监听
+    document.querySelectorAll('#sub-sub-grade-section-3 .sub-grade-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const subSubGrade = this.getAttribute('data-subgrade');
+            currentSubSubGrade = subSubGrade;
+            currentSubGrade = 'basic';
+            console.log('三年级二级子目录选择:', subSubGrade);
+            
+            // 直接生成并显示对应类型的题目
+            generateAndShowQuestions(3, subSubGrade);
+        });
+    });
+
+    // 为三年级返回子目录按钮添加事件监听
+    document.getElementById('back-to-sub-grade-btn-3').addEventListener('click', function() {
+        hideSubSubGradeSection3();
+    });
+
+    // 为四年级二级子目录按钮添加事件监听
+    document.querySelectorAll('#sub-sub-grade-section-4 .sub-grade-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const subSubGrade = this.getAttribute('data-subgrade');
+            currentSubSubGrade = subSubGrade;
+            currentSubGrade = 'basic';
+            console.log('四年级二级子目录选择:', subSubGrade);
+            
+            // 直接生成并显示对应类型的题目
+            generateAndShowQuestions(4, subSubGrade);
+        });
+    });
+
+    // 为四年级返回子目录按钮添加事件监听
+    document.getElementById('back-to-sub-grade-btn-4').addEventListener('click', function() {
+        hideSubSubGradeSection4();
+    });
+
+    // 为五年级二级子目录按钮添加事件监听
+    document.querySelectorAll('#sub-sub-grade-section-5 .sub-grade-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const subSubGrade = this.getAttribute('data-subgrade');
+            currentSubSubGrade = subSubGrade;
+            currentSubGrade = 'basic';
+            console.log('五年级二级子目录选择:', subSubGrade);
+            
+            // 直接生成并显示对应类型的题目
+            generateAndShowQuestions(5, subSubGrade);
+        });
+    });
+
+    // 为五年级返回子目录按钮添加事件监听
+    document.getElementById('back-to-sub-grade-btn-5').addEventListener('click', function() {
+        hideSubSubGradeSection5();
     });
     
     // 为提交按钮添加事件监听
@@ -220,41 +329,538 @@ window.onload = function() {
 function showSubGradeSection(grade) {
     currentGrade = grade;
     currentSubGrade = '';
-    
+    currentSubSubGrade = '';
+
     // 更新标题
     const gradeNames = ['', '一年级', '二年级', '三年级', '四年级', '五年级'];
     document.getElementById('sub-grade-title').textContent = `${gradeNames[grade]}练习模式`;
-    
+
     document.querySelector('.grade-section').style.display = 'none';
     document.getElementById('sub-grade-section').style.display = 'block';
     document.getElementById('practice-section').style.display = 'none';
 }
 
+// 显示二级子目录选择（一年级基础练习）
+function showSubSubGradeSection() {
+    console.log('显示二级子目录选择');
+    document.getElementById('sub-grade-section').style.display = 'none';
+    document.getElementById('sub-sub-grade-section').style.display = 'block';
+}
+
+// 隐藏二级子目录选择
+function hideSubSubGradeSection() {
+    currentSubSubGrade = '';
+    document.getElementById('sub-sub-grade-section').style.display = 'none';
+}
+
 // 隐藏子目录选择
 function hideSubGradeSection() {
     currentSubGrade = '';
+    currentSubSubGrade = '';
     document.querySelector('.grade-section').style.display = 'block';
     document.getElementById('sub-grade-section').style.display = 'none';
+    document.getElementById('sub-sub-grade-section').style.display = 'none';
+    document.getElementById('sub-sub-grade-section-2').style.display = 'none';
+    document.getElementById('sub-sub-grade-section-3').style.display = 'none';
+    document.getElementById('sub-sub-grade-section-4').style.display = 'none';
+    document.getElementById('sub-sub-grade-section-5').style.display = 'none';
     document.getElementById('practice-section').style.display = 'block';
 }
 
-// 开始练习
-function startPractice(grade) {
-    currentGrade = grade;
+// 显示二年级二级子目录选择
+function showSubSubGradeSection2() {
+    console.log('显示二年级二级子目录选择');
+    document.getElementById('sub-grade-section').style.display = 'none';
+    document.getElementById('sub-sub-grade-section-2').style.display = 'block';
+}
+
+// 隐藏二年级二级子目录选择
+function hideSubSubGradeSection2() {
+    currentSubSubGrade = '';
+    document.getElementById('sub-sub-grade-section-2').style.display = 'none';
+    document.getElementById('sub-grade-section').style.display = 'block';
+}
+
+// 显示三年级二级子目录选择
+function showSubSubGradeSection3() {
+    console.log('显示三年级二级子目录选择');
+    document.getElementById('sub-grade-section').style.display = 'none';
+    document.getElementById('sub-sub-grade-section-3').style.display = 'block';
+}
+
+// 隐藏三年级二级子目录选择
+function hideSubSubGradeSection3() {
+    currentSubSubGrade = '';
+    document.getElementById('sub-sub-grade-section-3').style.display = 'none';
+    document.getElementById('sub-grade-section').style.display = 'block';
+}
+
+// 显示四年级二级子目录选择
+function showSubSubGradeSection4() {
+    console.log('显示四年级二级子目录选择');
+    document.getElementById('sub-grade-section').style.display = 'none';
+    document.getElementById('sub-sub-grade-section-4').style.display = 'block';
+}
+
+// 隐藏四年级二级子目录选择
+function hideSubSubGradeSection4() {
+    currentSubSubGrade = '';
+    document.getElementById('sub-sub-grade-section-4').style.display = 'none';
+    document.getElementById('sub-grade-section').style.display = 'block';
+}
+
+// 显示五年级二级子目录选择
+function showSubSubGradeSection5() {
+    console.log('显示五年级二级子目录选择');
+    document.getElementById('sub-grade-section').style.display = 'none';
+    document.getElementById('sub-sub-grade-section-5').style.display = 'block';
+}
+
+// 隐藏五年级二级子目录选择
+function hideSubSubGradeSection5() {
+    currentSubSubGrade = '';
+    document.getElementById('sub-sub-grade-section-5').style.display = 'none';
+    document.getElementById('sub-grade-section').style.display = 'block';
+}
+
+// 直接生成并显示题目（用于二级子目录）
+function generateAndShowQuestions(grade, subSubGrade) {
+    console.log('=== generateAndShowQuestions ===');
+    console.log('grade:', grade, 'subSubGrade:', subSubGrade);
     
-    // 先保存当前子目录选择（在隐藏前保存）
-    const selectedSubGrade = currentSubGrade;
+    const questions = [];
+    const count = 50;
+    
+    for (let i = 0; i < count; i++) {
+        let question, answer;
+        
+        switch(subSubGrade) {
+            case 'within10':
+                // 10以内加减法
+                if (Math.random() > 0.5) {
+                    const a = Math.floor(Math.random() * 10) + 1;
+                    const b = Math.floor(Math.random() * 10) + 1;
+                    question = `${a} + ${b} =`;
+                    answer = a + b;
+                } else {
+                    const a = Math.floor(Math.random() * 10) + 1;
+                    const b = Math.floor(Math.random() * a) + 1;
+                    question = `${a} - ${b} =`;
+                    answer = a - b;
+                }
+                break;
+                
+            case 'within20':
+                // 20以内加减法
+                if (Math.random() > 0.5) {
+                    const a = Math.floor(Math.random() * 20) + 1;
+                    const b = Math.floor(Math.random() * 20) + 1;
+                    question = `${a} + ${b} =`;
+                    answer = a + b;
+                } else {
+                    const a = Math.floor(Math.random() * 20) + 1;
+                    const b = Math.floor(Math.random() * a) + 1;
+                    question = `${a} - ${b} =`;
+                    answer = a - b;
+                }
+                break;
+                
+            case 'currency':
+                // 元角分练习
+                const randCur = Math.random();
+                if (randCur > 0.66) {
+                    const a = Math.floor(Math.random() * 9) + 1;
+                    const b = Math.floor(Math.random() * 9) + 1;
+                    if (Math.random() > 0.5) {
+                        question = `${a}角 + ${b}角 = ？角`;
+                        answer = a + b;
+                    } else {
+                        const max = Math.max(a, b);
+                        const min = Math.min(a, b);
+                        question = `${max}角 - ${min}角 = ？角`;
+                        answer = max - min;
+                    }
+                } else if (randCur > 0.33) {
+                    const a = Math.floor(Math.random() * 5) + 1;
+                    question = `${a}元 = ？角`;
+                    answer = a * 10;
+                } else {
+                    const a = Math.floor(Math.random() * 9) + 1;
+                    question = `${a * 10}角 = ？元`;
+                    answer = a;
+                }
+                break;
+                
+            case 'within100':
+                // 100以内加减法
+                if (Math.random() > 0.5) {
+                    const a = Math.floor(Math.random() * 90) + 10;
+                    const b = Math.floor(Math.random() * 90) + 10;
+                    question = `${a} + ${b} =`;
+                    answer = a + b;
+                } else {
+                    const a = Math.floor(Math.random() * 90) + 10;
+                    const b = Math.floor(Math.random() * a) + 1;
+                    question = `${a} - ${b} =`;
+                    answer = a - b;
+                }
+                break;
+                
+            case 'multiplication':
+                // 表内乘除法
+                if (Math.random() > 0.5) {
+                    // 表内乘法（1-9）
+                    const a = Math.floor(Math.random() * 9) + 1;
+                    const b = Math.floor(Math.random() * 9) + 1;
+                    question = `${a} × ${b} =`;
+                    answer = a * b;
+                } else {
+                    // 表内除法
+                    const a = Math.floor(Math.random() * 9) + 1;
+                    const b = Math.floor(Math.random() * 9) + 1;
+                    const product = a * b;
+                    question = `${product} ÷ ${a} =`;
+                    answer = b;
+                }
+                break;
+                
+            case 'units':
+                // 长度重量单位换算
+                const unitRand = Math.random();
+                if (unitRand > 0.5) {
+                    // 长度单位换算（米、厘米、毫米）
+                    const lengthRand = Math.random();
+                    if (lengthRand > 0.66) {
+                        const a = Math.floor(Math.random() * 10) + 1;
+                        question = `${a}米 = ？厘米`;
+                        answer = a * 100;
+                    } else if (lengthRand > 0.33) {
+                        const a = Math.floor(Math.random() * 50) + 10;
+                        question = `${a}厘米 = ？毫米`;
+                        answer = a * 10;
+                    } else {
+                        const a = Math.floor(Math.random() * 5) + 1;
+                        question = `${a}米 = ？毫米`;
+                        answer = a * 1000;
+                    }
+                } else {
+                    // 重量单位换算（千克、克）
+                    const weightRand = Math.random();
+                    if (weightRand > 0.5) {
+                        const a = Math.floor(Math.random() * 10) + 1;
+                        question = `${a}千克 = ？克`;
+                        answer = a * 1000;
+                    } else {
+                        const a = Math.floor(Math.random() * 9) + 1;
+                        question = `${a * 1000}克 = ？千克`;
+                        answer = a;
+                    }
+                }
+                break;
+                
+            case 'within10000':
+                // 万以内加减法
+                if (Math.random() > 0.5) {
+                    const a = Math.floor(Math.random() * 9000) + 1000;
+                    const b = Math.floor(Math.random() * 9000) + 1000;
+                    question = `${a} + ${b} =`;
+                    answer = a + b;
+                } else {
+                    const a = Math.floor(Math.random() * 9000) + 1000;
+                    const b = Math.floor(Math.random() * (a - 100)) + 100;
+                    question = `${a} - ${b} =`;
+                    answer = a - b;
+                }
+                break;
+                
+            case 'twoDigitMultDiv':
+                // 两位数乘除法
+                if (Math.random() > 0.5) {
+                    // 两位数乘法
+                    const tens1 = Math.floor(Math.random() * 9) + 1;
+                    const ones1 = Math.floor(Math.random() * 10);
+                    const num1 = tens1 * 10 + ones1;
+                    const tens2 = Math.floor(Math.random() * 9) + 1;
+                    const ones2 = Math.floor(Math.random() * 10);
+                    const num2 = tens2 * 10 + ones2;
+                    question = `${num1} × ${num2} =`;
+                    answer = num1 * num2;
+                } else {
+                    // 一位数除法（能整除）
+                    const divisor = Math.floor(Math.random() * 9) + 1;
+                    const quotient = Math.floor(Math.random() * 90) + 10;
+                    const dividend = divisor * quotient;
+                    question = `${dividend} ÷ ${divisor} =`;
+                    answer = quotient;
+                }
+                break;
+                
+            case 'decimalBasic':
+                // 简单的小数加减
+                if (Math.random() > 0.5) {
+                    // 小数加法
+                    const a = Math.floor(Math.random() * 90) + 10;
+                    const b = Math.floor(Math.random() * 90) + 10;
+                    const dec1 = Math.floor(Math.random() * 10);
+                    const dec2 = Math.floor(Math.random() * 10);
+                    question = `${a}.${dec1} + ${b}.${dec2} =`;
+                    answer = (a + b) + (dec1 + dec2) / 10;
+                } else {
+                    // 小数减法（确保结果不为负数）
+                    const a = Math.floor(Math.random() * 90) + 10;
+                    const b = Math.floor(Math.random() * 90) + 10;
+                    const dec1 = Math.floor(Math.random() * 10);
+                    const dec2 = Math.floor(Math.random() * 10);
+                    const num1 = parseFloat(`${a}.${dec1}`);
+                    const num2 = parseFloat(`${b}.${dec2}`);
+                    const max = Math.max(num1, num2);
+                    const min = Math.min(num1, num2);
+                    question = `${max.toFixed(1)} - ${min.toFixed(1)} =`;
+                    answer = max - min;
+                }
+                break;
+                
+            case 'threeDigitTwoDigitMult':
+                // 三位数乘两位数乘法
+                const hundreds = Math.floor(Math.random() * 9) + 1;
+                const tens = Math.floor(Math.random() * 10);
+                const ones = Math.floor(Math.random() * 10);
+                const threeDigit = hundreds * 100 + tens * 10 + ones;
+                const tens2 = Math.floor(Math.random() * 9) + 1;
+                const ones2 = Math.floor(Math.random() * 10);
+                const twoDigit = tens2 * 10 + ones2;
+                question = `${threeDigit} × ${twoDigit} =`;
+                answer = threeDigit * twoDigit;
+                break;
+                
+            case 'twoDigitDiv':
+                // 两位数除法（能整除）
+                const divisor = Math.floor(Math.random() * 90) + 10;
+                const quotient = Math.floor(Math.random() * 90) + 10;
+                const dividend = divisor * quotient;
+                question = `${dividend} ÷ ${divisor} =`;
+                answer = quotient;
+                break;
+                
+            case 'decimalAddSub':
+                // 小数加减法（两位小数）
+                if (Math.random() > 0.5) {
+                    // 小数加法
+                    const a = Math.floor(Math.random() * 90) + 10;
+                    const b = Math.floor(Math.random() * 90) + 10;
+                    const dec1 = Math.floor(Math.random() * 100);
+                    const dec2 = Math.floor(Math.random() * 100);
+                    question = `${a}.${dec1.toString().padStart(2, '0')} + ${b}.${dec2.toString().padStart(2, '0')} =`;
+                    answer = (a + b) + (dec1 + dec2) / 100;
+                } else {
+                    // 小数减法（确保结果不为负数）
+                    const a = Math.floor(Math.random() * 90) + 10;
+                    const b = Math.floor(Math.random() * 90) + 10;
+                    const dec1 = Math.floor(Math.random() * 100);
+                    const dec2 = Math.floor(Math.random() * 100);
+                    const num1 = parseFloat(`${a}.${dec1.toString().padStart(2, '0')}`);
+                    const num2 = parseFloat(`${b}.${dec2.toString().padStart(2, '0')}`);
+                    const max = Math.max(num1, num2);
+                    const min = Math.min(num1, num2);
+                    question = `${max.toFixed(2)} - ${min.toFixed(2)} =`;
+                    answer = max - min;
+                }
+                break;
+                
+            case 'unitConversion':
+                // 度量单位换算
+                const unitType = Math.random();
+                if (unitType > 0.75) {
+                    // 长度单位换算（千米、米、分米、厘米、毫米）
+                    const lengthUnit = Math.random();
+                    if (lengthUnit > 0.8) {
+                        const a = Math.floor(Math.random() * 10) + 1;
+                        question = `${a}千米 = ？米`;
+                        answer = a * 1000;
+                    } else if (lengthUnit > 0.6) {
+                        const a = Math.floor(Math.random() * 10) + 1;
+                        question = `${a * 1000}米 = ？千米`;
+                        answer = a;
+                    } else if (lengthUnit > 0.4) {
+                        const a = Math.floor(Math.random() * 10) + 1;
+                        question = `${a}米 = ？分米`;
+                        answer = a * 10;
+                    } else if (lengthUnit > 0.2) {
+                        const a = Math.floor(Math.random() * 50) + 10;
+                        question = `${a}分米 = ？厘米`;
+                        answer = a * 10;
+                    } else {
+                        const a = Math.floor(Math.random() * 50) + 10;
+                        question = `${a}厘米 = ？毫米`;
+                        answer = a * 10;
+                    }
+                } else if (unitType > 0.5) {
+                    // 重量单位换算（吨、千克、克）
+                    const weightUnit = Math.random();
+                    if (weightUnit > 0.66) {
+                        const a = Math.floor(Math.random() * 10) + 1;
+                        question = `${a}吨 = ？千克`;
+                        answer = a * 1000;
+                    } else if (weightUnit > 0.33) {
+                        const a = Math.floor(Math.random() * 10) + 1;
+                        question = `${a * 1000}千克 = ？吨`;
+                        answer = a;
+                    } else {
+                        const a = Math.floor(Math.random() * 10) + 1;
+                        question = `${a}千克 = ？克`;
+                        answer = a * 1000;
+                    }
+                } else if (unitType > 0.25) {
+                    // 面积单位换算（平方米、平方分米、平方厘米）
+                    const areaUnit = Math.random();
+                    if (areaUnit > 0.66) {
+                        const a = Math.floor(Math.random() * 10) + 1;
+                        question = `${a}平方米 = ？平方分米`;
+                        answer = a * 100;
+                    } else if (areaUnit > 0.33) {
+                        const a = Math.floor(Math.random() * 50) + 10;
+                        question = `${a}平方分米 = ？平方厘米`;
+                        answer = a * 100;
+                    } else {
+                        const a = Math.floor(Math.random() * 10) + 1;
+                        question = `${a * 100}平方分米 = ？平方米`;
+                        answer = a;
+                    }
+                } else {
+                    // 时间单位换算（时、分、秒）
+                    const timeUnit = Math.random();
+                    if (timeUnit > 0.66) {
+                        const a = Math.floor(Math.random() * 24) + 1;
+                        question = `${a}时 = ？分`;
+                        answer = a * 60;
+                    } else if (timeUnit > 0.33) {
+                        const a = Math.floor(Math.random() * 60) + 1;
+                        question = `${a}分 = ？秒`;
+                        answer = a * 60;
+                    } else {
+                        const a = Math.floor(Math.random() * 60) + 1;
+                        question = `${a}分 = ？时${a % 60}分`;
+                        const hours = Math.floor(a / 60);
+                        const minutes = a % 60;
+                        answer = hours * 60 + minutes;
+                    }
+                }
+                break;
+                
+            case 'decimalMult':
+                // 小数乘法
+                const decimalMultType = Math.random();
+                if (decimalMultType > 0.5) {
+                    // 小数乘整数
+                    const integer = Math.floor(Math.random() * 90) + 10;
+                    const dec = Math.floor(Math.random() * 100);
+                    const decimal = parseFloat(`0.${dec.toString().padStart(2, '0')}`);
+                    question = `${integer} × ${decimal.toFixed(2)} =`;
+                    answer = integer * decimal;
+                } else {
+                    // 小数乘小数
+                    const a = Math.floor(Math.random() * 90) + 10;
+                    const b = Math.floor(Math.random() * 90) + 10;
+                    const dec1 = Math.floor(Math.random() * 100);
+                    const dec2 = Math.floor(Math.random() * 100);
+                    const decimal1 = parseFloat(`${a}.${dec1.toString().padStart(2, '0')}`);
+                    const decimal2 = parseFloat(`${b}.${dec2.toString().padStart(2, '0')}`);
+                    question = `${decimal1.toFixed(2)} × ${decimal2.toFixed(2)} =`;
+                    answer = decimal1 * decimal2;
+                }
+                break;
+                
+            case 'decimalDiv':
+                // 小数除法
+                const decimalDivType = Math.random();
+                if (decimalDivType > 0.5) {
+                    // 小数除以整数
+                    const divisor = Math.floor(Math.random() * 9) + 1;
+                    const quotient = parseFloat((Math.random() * 10 + 1).toFixed(2));
+                    const dividend = divisor * quotient;
+                    question = `${dividend.toFixed(2)} ÷ ${divisor} =`;
+                    answer = quotient;
+                } else {
+                    // 小数除以小数（能整除）
+                    const divisorDec = Math.floor(Math.random() * 90) + 10;
+                    const divisor = parseFloat(`0.${divisorDec.toString().padStart(2, '0')}`);
+                    const quotient = Math.floor(Math.random() * 90) + 10;
+                    const dividend = divisor * quotient;
+                    question = `${dividend.toFixed(2)} ÷ ${divisor.toFixed(2)} =`;
+                    answer = quotient;
+                }
+                break;
+                
+            case 'fractionAddSub':
+                // 分数加减法
+                const fractionType = Math.random();
+                if (fractionType > 0.5) {
+                    // 分数加法
+                    const num1 = Math.floor(Math.random() * 9) + 1;
+                    const den1 = Math.floor(Math.random() * 9) + 2;
+                    const num2 = Math.floor(Math.random() * 9) + 1;
+                    const den2 = Math.floor(Math.random() * 9) + 2;
+                    question = `${num1}/${den1} + ${num2}/${den2} =`;
+                    const commonDen = den1 * den2;
+                    const newNum1 = num1 * den2;
+                    const newNum2 = num2 * den1;
+                    const sumNum = newNum1 + newNum2;
+                    // 简化分数
+                    const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+                    const divisor = gcd(sumNum, commonDen);
+                    const simplifiedNum = sumNum / divisor;
+                    const simplifiedDen = commonDen / divisor;
+                    if (simplifiedDen === 1) {
+                        answer = simplifiedNum;
+                    } else {
+                        answer = `${simplifiedNum}/${simplifiedDen}`;
+                    }
+                } else {
+                    // 分数减法（确保结果不为负数）
+                    const num1 = Math.floor(Math.random() * 9) + 1;
+                    const den1 = Math.floor(Math.random() * 9) + 2;
+                    const num2 = Math.floor(Math.random() * 9) + 1;
+                    const den2 = Math.floor(Math.random() * 9) + 2;
+                    const commonDen = den1 * den2;
+                    const newNum1 = num1 * den2;
+                    const newNum2 = num2 * den1;
+                    const maxNum = Math.max(newNum1, newNum2);
+                    const minNum = Math.min(newNum1, newNum2);
+                    const diffNum = maxNum - minNum;
+                    // 简化分数
+                    const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+                    const divisor = gcd(diffNum, commonDen);
+                    const simplifiedNum = diffNum / divisor;
+                    const simplifiedDen = commonDen / divisor;
+                    if (simplifiedDen === 1) {
+                        answer = simplifiedNum;
+                    } else {
+                        answer = `${simplifiedNum}/${simplifiedDen}`;
+                    }
+                    // 根据大小调整题目显示顺序
+                    if (newNum1 >= newNum2) {
+                        question = `${num1}/${den1} - ${num2}/${den2} =`;
+                    } else {
+                        question = `${num2}/${den2} - ${num1}/${den1} =`;
+                    }
+                }
+                break;
+        }
+        
+        questions.push({ question, answer });
+    }
+    
+    console.log('生成题目数量:', questions.length);
+    if (questions.length > 0) {
+        console.log('第一题:', questions[0].question, '答案:', questions[0].answer);
+    }
     
     // 隐藏子目录选择区域
     hideSubGradeSection();
     
-    // 生成题目（根据子目录选择）
-    const key = selectedSubGrade ? `${grade}-${selectedSubGrade}` : grade;
-    console.log('生成题目 key:', key, 'subGrade:', selectedSubGrade);
-    if (!gradeQuestions[key] || gradeQuestions[key].length !== 50) {
-        gradeQuestions[key] = generateQuestions(grade, 50, selectedSubGrade);
-        console.log('题目生成成功，数量:', gradeQuestions[key].length);
-    }
+    // 保存题目
+    const key = `${grade}-basic-${subSubGrade}`;
+    gradeQuestions[key] = questions;
     
     // 显示题目
     displayQuestions(grade, key);
@@ -272,8 +878,60 @@ function startPractice(grade) {
     document.getElementById('practice-section').style.display = 'block';
 }
 
+// 开始练习
+function startPractice(grade) {
+    currentGrade = grade;
+
+    // 先保存当前子目录选择（在隐藏前保存）
+    const selectedSubGrade = currentSubGrade;
+    const selectedSubSubGrade = currentSubSubGrade;
+
+    console.log('=== startPractice 开始 ===');
+    console.log('grade:', grade);
+    console.log('currentSubGrade:', currentSubGrade, 'selectedSubGrade:', selectedSubGrade);
+    console.log('currentSubSubGrade:', currentSubSubGrade, 'selectedSubSubGrade:', selectedSubSubGrade);
+
+    // 隐藏子目录选择区域
+    hideSubGradeSection();
+
+    // 生成题目（根据子目录选择）
+    let key;
+    if ((grade === 1 || grade === 2 || grade === 3 || grade === 4 || grade === 5) && selectedSubGrade === 'basic' && selectedSubSubGrade) {
+        // 一年级、二年级、三年级、四年级或五年级基础练习使用二级子目录
+        key = `${grade}-${selectedSubGrade}-${selectedSubSubGrade}`;
+        console.log('使用二级子目录 key:', key);
+    } else {
+        // 其他情况使用一级子目录
+        key = selectedSubGrade ? `${grade}-${selectedSubGrade}` : grade;
+        console.log('使用一级子目录 key:', key);
+    }
+    
+    // 强制重新生成题目，避免缓存问题
+    console.log('调用 generateQuestions:', grade, 50, selectedSubGrade, selectedSubSubGrade);
+    gradeQuestions[key] = generateQuestions(grade, 50, selectedSubGrade, selectedSubSubGrade);
+    console.log('题目生成成功，数量:', gradeQuestions[key].length);
+    if (gradeQuestions[key].length > 0) {
+        console.log('第一题:', gradeQuestions[key][0].question, '答案:', gradeQuestions[key][0].answer);
+    }
+
+    // 显示题目
+    displayQuestions(grade, key);
+
+    // 重置计时器
+    resetTimer(grade);
+
+    // 开始计时
+    startTimer(grade);
+
+    // 重置正确数
+    document.getElementById('correct-count').textContent = '0';
+
+    // 显示练习区域
+    document.getElementById('practice-section').style.display = 'block';
+}
+
 // 生成题目
-function generateQuestions(grade, count, subGrade = '') {
+function generateQuestions(grade, count, subGrade = '', subSubGrade = '') {
     const questions = [];
     
     for (let i = 0; i < count; i++) {
@@ -282,17 +940,70 @@ function generateQuestions(grade, count, subGrade = '') {
         switch (grade) {
             case 1: // 一年级：根据子目录选择不同难度
                 if (subGrade === 'basic') {
-                    // 基础练习：20以内加减法
-                    if (Math.random() > 0.5) {
-                        const a = Math.floor(Math.random() * 20) + 1;
-                        const b = Math.floor(Math.random() * 20) + 1;
-                        question = `${a} + ${b} =`;
-                        answer = a + b;
+                    // 基础练习：根据二级子目录选择
+                    if (subSubGrade === 'within10') {
+                        // 10以内加减法
+                        if (Math.random() > 0.5) {
+                            const a = Math.floor(Math.random() * 10) + 1;
+                            const b = Math.floor(Math.random() * 10) + 1;
+                            question = `${a} + ${b} =`;
+                            answer = a + b;
+                        } else {
+                            const a = Math.floor(Math.random() * 10) + 1;
+                            const b = Math.floor(Math.random() * a) + 1;
+                            question = `${a} - ${b} =`;
+                            answer = a - b;
+                        }
+                    } else if (subSubGrade === 'within20') {
+                        // 20以内加减法
+                        if (Math.random() > 0.5) {
+                            const a = Math.floor(Math.random() * 20) + 1;
+                            const b = Math.floor(Math.random() * 20) + 1;
+                            question = `${a} + ${b} =`;
+                            answer = a + b;
+                        } else {
+                            const a = Math.floor(Math.random() * 20) + 1;
+                            const b = Math.floor(Math.random() * a) + 1;
+                            question = `${a} - ${b} =`;
+                            answer = a - b;
+                        }
+                    } else if (subSubGrade === 'currency') {
+                        // 元角分练习
+                        const rand = Math.random();
+                        if (rand > 0.66) {
+                            const a = Math.floor(Math.random() * 9) + 1;
+                            const b = Math.floor(Math.random() * 9) + 1;
+                            if (Math.random() > 0.5) {
+                                question = `${a}角 + ${b}角 = ？角`;
+                                answer = a + b;
+                            } else {
+                                const max = Math.max(a, b);
+                                const min = Math.min(a, b);
+                                question = `${max}角 - ${min}角 = ？角`;
+                                answer = max - min;
+                            }
+                        } else if (rand > 0.33) {
+                            const a = Math.floor(Math.random() * 5) + 1;
+                            question = `${a}元 = ？角`;
+                            answer = a * 10;
+                        } else {
+                            const a = Math.floor(Math.random() * 9) + 1;
+                            question = `${a * 10}角 = ？元`;
+                            answer = a;
+                        }
                     } else {
-                        const a = Math.floor(Math.random() * 20) + 1;
-                        const b = Math.floor(Math.random() * a) + 1;
-                        question = `${a} - ${b} =`;
-                        answer = a - b;
+                        // 默认：20以内加减法
+                        if (Math.random() > 0.5) {
+                            const a = Math.floor(Math.random() * 20) + 1;
+                            const b = Math.floor(Math.random() * 20) + 1;
+                            question = `${a} + ${b} =`;
+                            answer = a + b;
+                        } else {
+                            const a = Math.floor(Math.random() * 20) + 1;
+                            const b = Math.floor(Math.random() * a) + 1;
+                            question = `${a} - ${b} =`;
+                            answer = a - b;
+                        }
                     }
                 } else if (subGrade === 'comprehensive') {
                     // 综合练习：20以内加减法 + 人民币练习
@@ -377,9 +1088,8 @@ function generateQuestions(grade, count, subGrade = '') {
                 
             case 2: // 二年级：根据子目录选择不同难度
                 if (subGrade === 'basic') {
-                    // 基础练习：100以内加减法、表内乘除法
-                    const rand = Math.random();
-                    if (rand > 0.5) {
+                    // 基础练习：根据二级子目录选择
+                    if (subSubGrade === 'within100') {
                         // 100以内加减法
                         if (Math.random() > 0.5) {
                             const a = Math.floor(Math.random() * 90) + 10;
@@ -392,19 +1102,84 @@ function generateQuestions(grade, count, subGrade = '') {
                             question = `${a} - ${b} =`;
                             answer = a - b;
                         }
-                    } else if (rand > 0.25) {
-                        // 表内乘法（1-9）
-                        const a = Math.floor(Math.random() * 9) + 1;
-                        const b = Math.floor(Math.random() * 9) + 1;
-                        question = `${a} × ${b} =`;
-                        answer = a * b;
+                    } else if (subSubGrade === 'multiplication') {
+                        // 表内乘除法
+                        if (Math.random() > 0.5) {
+                            // 表内乘法（1-9）
+                            const a = Math.floor(Math.random() * 9) + 1;
+                            const b = Math.floor(Math.random() * 9) + 1;
+                            question = `${a} × ${b} =`;
+                            answer = a * b;
+                        } else {
+                            // 表内除法
+                            const a = Math.floor(Math.random() * 9) + 1;
+                            const b = Math.floor(Math.random() * 9) + 1;
+                            const product = a * b;
+                            question = `${product} ÷ ${a} =`;
+                            answer = b;
+                        }
+                    } else if (subSubGrade === 'units') {
+                        // 长度重量单位换算
+                        const unitRand = Math.random();
+                        if (unitRand > 0.5) {
+                            // 长度单位换算（米、厘米、毫米）
+                            const lengthRand = Math.random();
+                            if (lengthRand > 0.66) {
+                                const a = Math.floor(Math.random() * 10) + 1;
+                                question = `${a}米 = ？厘米`;
+                                answer = a * 100;
+                            } else if (lengthRand > 0.33) {
+                                const a = Math.floor(Math.random() * 50) + 10;
+                                question = `${a}厘米 = ？毫米`;
+                                answer = a * 10;
+                            } else {
+                                const a = Math.floor(Math.random() * 5) + 1;
+                                question = `${a}米 = ？毫米`;
+                                answer = a * 1000;
+                            }
+                        } else {
+                            // 重量单位换算（千克、克）
+                            const weightRand = Math.random();
+                            if (weightRand > 0.5) {
+                                const a = Math.floor(Math.random() * 10) + 1;
+                                question = `${a}千克 = ？克`;
+                                answer = a * 1000;
+                            } else {
+                                const a = Math.floor(Math.random() * 9) + 1;
+                                question = `${a * 1000}克 = ？千克`;
+                                answer = a;
+                            }
+                        }
                     } else {
-                        // 表内除法
-                        const a = Math.floor(Math.random() * 9) + 1;
-                        const b = Math.floor(Math.random() * 9) + 1;
-                        const product = a * b;
-                        question = `${product} ÷ ${a} =`;
-                        answer = b;
+                        // 默认：混合练习（100以内加减法、表内乘除法）
+                        const rand = Math.random();
+                        if (rand > 0.5) {
+                            // 100以内加减法
+                            if (Math.random() > 0.5) {
+                                const a = Math.floor(Math.random() * 90) + 10;
+                                const b = Math.floor(Math.random() * 90) + 10;
+                                question = `${a} + ${b} =`;
+                                answer = a + b;
+                            } else {
+                                const a = Math.floor(Math.random() * 90) + 10;
+                                const b = Math.floor(Math.random() * a) + 1;
+                                question = `${a} - ${b} =`;
+                                answer = a - b;
+                            }
+                        } else if (rand > 0.25) {
+                            // 表内乘法（1-9）
+                            const a = Math.floor(Math.random() * 9) + 1;
+                            const b = Math.floor(Math.random() * 9) + 1;
+                            question = `${a} × ${b} =`;
+                            answer = a * b;
+                        } else {
+                            // 表内除法
+                            const a = Math.floor(Math.random() * 9) + 1;
+                            const b = Math.floor(Math.random() * 9) + 1;
+                            const product = a * b;
+                            question = `${product} ÷ ${a} =`;
+                            answer = b;
+                        }
                     }
                 } else if (subGrade === 'comprehensive') {
                     // 综合练习：100以内加减法、连加连减、两位数乘一位数、表内除法、长度单位换算
@@ -489,33 +1264,92 @@ function generateQuestions(grade, count, subGrade = '') {
                 
             case 3: // 三年级：根据子目录选择不同难度
                 if (subGrade === 'basic') {
-                    // 基础练习：三位数乘一位数、千以内加减法、三位数除1位数
-                    const rand = Math.random();
-                    if (rand > 0.5) {
-                        // 千以内加减法
+                    // 基础练习：根据二级子目录选择
+                    if (subSubGrade === 'within10000') {
+                        // 万以内加减法
                         if (Math.random() > 0.5) {
-                            const a = Math.floor(Math.random() * 900) + 100;
-                            const b = Math.floor(Math.random() * 900) + 100;
+                            const a = Math.floor(Math.random() * 9000) + 1000;
+                            const b = Math.floor(Math.random() * 9000) + 1000;
                             question = `${a} + ${b} =`;
                             answer = a + b;
                         } else {
-                            const a = Math.floor(Math.random() * 900) + 100;
+                            const a = Math.floor(Math.random() * 9000) + 1000;
                             const b = Math.floor(Math.random() * (a - 100)) + 100;
                             question = `${a} - ${b} =`;
                             answer = a - b;
                         }
-                    } else if (rand > 0.25) {
-                        // 三位数乘一位数
-                        const a = Math.floor(Math.random() * 900) + 100;
-                        const b = Math.floor(Math.random() * 9) + 1;
-                        question = `${a} × ${b} =`;
-                        answer = a * b;
+                    } else if (subSubGrade === 'twoDigitMultDiv') {
+                        // 两位数乘除法
+                        if (Math.random() > 0.5) {
+                            // 两位数乘法
+                            const tens1 = Math.floor(Math.random() * 9) + 1;
+                            const ones1 = Math.floor(Math.random() * 10);
+                            const num1 = tens1 * 10 + ones1;
+                            const tens2 = Math.floor(Math.random() * 9) + 1;
+                            const ones2 = Math.floor(Math.random() * 10);
+                            const num2 = tens2 * 10 + ones2;
+                            question = `${num1} × ${num2} =`;
+                            answer = num1 * num2;
+                        } else {
+                            // 一位数除法（能整除）
+                            const divisor = Math.floor(Math.random() * 9) + 1;
+                            const quotient = Math.floor(Math.random() * 90) + 10;
+                            const dividend = divisor * quotient;
+                            question = `${dividend} ÷ ${divisor} =`;
+                            answer = quotient;
+                        }
+                    } else if (subSubGrade === 'decimalBasic') {
+                        // 简单的小数加减
+                        if (Math.random() > 0.5) {
+                            // 小数加法
+                            const a = Math.floor(Math.random() * 90) + 10;
+                            const b = Math.floor(Math.random() * 90) + 10;
+                            const dec1 = Math.floor(Math.random() * 10);
+                            const dec2 = Math.floor(Math.random() * 10);
+                            question = `${a}.${dec1} + ${b}.${dec2} =`;
+                            answer = (a + b) + (dec1 + dec2) / 10;
+                        } else {
+                            // 小数减法（确保结果不为负数）
+                            const a = Math.floor(Math.random() * 90) + 10;
+                            const b = Math.floor(Math.random() * 90) + 10;
+                            const dec1 = Math.floor(Math.random() * 10);
+                            const dec2 = Math.floor(Math.random() * 10);
+                            const num1 = parseFloat(`${a}.${dec1}`);
+                            const num2 = parseFloat(`${b}.${dec2}`);
+                            const max = Math.max(num1, num2);
+                            const min = Math.min(num1, num2);
+                            question = `${max.toFixed(1)} - ${min.toFixed(1)} =`;
+                            answer = max - min;
+                        }
                     } else {
-                        // 三位数除1位数
-                        const b = Math.floor(Math.random() * 9) + 1;
-                        answer = Math.floor(Math.random() * 100) + 10;
-                        const a = b * answer;
-                        question = `${a} ÷ ${b} =`;
+                        // 默认：混合练习（三位数乘一位数、千以内加减法、三位数除1位数）
+                        const rand = Math.random();
+                        if (rand > 0.5) {
+                            // 千以内加减法
+                            if (Math.random() > 0.5) {
+                                const a = Math.floor(Math.random() * 900) + 100;
+                                const b = Math.floor(Math.random() * 900) + 100;
+                                question = `${a} + ${b} =`;
+                                answer = a + b;
+                            } else {
+                                const a = Math.floor(Math.random() * 900) + 100;
+                                const b = Math.floor(Math.random() * (a - 100)) + 100;
+                                question = `${a} - ${b} =`;
+                                answer = a - b;
+                            }
+                        } else if (rand > 0.25) {
+                            // 三位数乘一位数
+                            const a = Math.floor(Math.random() * 900) + 100;
+                            const b = Math.floor(Math.random() * 9) + 1;
+                            question = `${a} × ${b} =`;
+                            answer = a * b;
+                        } else {
+                            // 三位数除1位数
+                            const b = Math.floor(Math.random() * 9) + 1;
+                            answer = Math.floor(Math.random() * 100) + 10;
+                            const a = b * answer;
+                            question = `${a} ÷ ${b} =`;
+                        }
                     }
                 } else if (subGrade === 'comprehensive') {
                     // 综合练习：千以内加减法、三位数乘一位数、三位数除1位数、混合运算、简单小数加法
@@ -595,65 +1429,235 @@ function generateQuestions(grade, count, subGrade = '') {
                 
             case 4: // 四年级：根据子目录选择不同难度
                 if (subGrade === 'basic') {
-                    // 基础练习：除数2位数的除法、三位数乘一位数、小数加减法
-                    const rand = Math.random();
-                    if (rand > 0.5) {
-                        // 小数加减法（一位小数）
-                        const a = Math.floor(Math.random() * 90) + 10;
-                        const b = Math.floor(Math.random() * 90) + 10;
-                        const dec1 = Math.floor(Math.random() * 10);
-                        const dec2 = Math.floor(Math.random() * 10);
+                    // 基础练习：根据二级子目录选择
+                    if (subSubGrade === 'threeDigitTwoDigitMult') {
+                        // 三位数乘两位数乘法
+                        const hundreds = Math.floor(Math.random() * 9) + 1;
+                        const tens = Math.floor(Math.random() * 10);
+                        const ones = Math.floor(Math.random() * 10);
+                        const threeDigit = hundreds * 100 + tens * 10 + ones;
+                        const tens2 = Math.floor(Math.random() * 9) + 1;
+                        const ones2 = Math.floor(Math.random() * 10);
+                        const twoDigit = tens2 * 10 + ones2;
+                        question = `${threeDigit} × ${twoDigit} =`;
+                        answer = threeDigit * twoDigit;
+                    } else if (subSubGrade === 'twoDigitDiv') {
+                        // 两位数除法（能整除）
+                        const divisor = Math.floor(Math.random() * 90) + 10;
+                        const quotient = Math.floor(Math.random() * 90) + 10;
+                        const dividend = divisor * quotient;
+                        question = `${dividend} ÷ ${divisor} =`;
+                        answer = quotient;
+                    } else if (subSubGrade === 'decimalAddSub') {
+                        // 小数加减法（两位小数）
                         if (Math.random() > 0.5) {
-                            question = `${a}.${dec1} + ${b}.${dec2} =`;
-                            answer = (a + b) + (dec1 + dec2) / 10;
+                            // 小数加法
+                            const a = Math.floor(Math.random() * 90) + 10;
+                            const b = Math.floor(Math.random() * 90) + 10;
+                            const dec1 = Math.floor(Math.random() * 100);
+                            const dec2 = Math.floor(Math.random() * 100);
+                            question = `${a}.${dec1.toString().padStart(2, '0')} + ${b}.${dec2.toString().padStart(2, '0')} =`;
+                            answer = (a + b) + (dec1 + dec2) / 100;
                         } else {
-                            const num1 = parseFloat(`${a}.${dec1}`);
-                            const num2 = parseFloat(`${b}.${dec2}`);
+                            // 小数减法（确保结果不为负数）
+                            const a = Math.floor(Math.random() * 90) + 10;
+                            const b = Math.floor(Math.random() * 90) + 10;
+                            const dec1 = Math.floor(Math.random() * 100);
+                            const dec2 = Math.floor(Math.random() * 100);
+                            const num1 = parseFloat(`${a}.${dec1.toString().padStart(2, '0')}`);
+                            const num2 = parseFloat(`${b}.${dec2.toString().padStart(2, '0')}`);
                             const max = Math.max(num1, num2);
                             const min = Math.min(num1, num2);
-                            question = `${max.toFixed(1)} - ${min.toFixed(1)} =`;
+                            question = `${max.toFixed(2)} - ${min.toFixed(2)} =`;
                             answer = max - min;
                         }
-                    } else if (rand > 0.25) {
-                        // 三位数乘一位数
-                        const a = Math.floor(Math.random() * 900) + 100;
-                        const b = Math.floor(Math.random() * 9) + 1;
-                        question = `${a} × ${b} =`;
-                        answer = a * b;
-                    } else {
-                        // 除数2位数的除法
-                        const b = Math.floor(Math.random() * 90) + 10;
-                        answer = Math.floor(Math.random() * 9) + 1;
-                        const a = b * answer;
-                        question = `${a} ÷ ${b} =`;
-                    }
-                } else if (subGrade === 'comprehensive') {
-                    // 综合练习：1000以内除加除减混合、1000以内连乘连除
-                    if (Math.random() > 0.5) {
-                        // 除加除减混合运算
-                        const a = Math.floor(Math.random() * 90) + 10;
-                        const b = Math.floor(Math.random() * 9) + 1;
-                        if (Math.random() > 0.5) {
-                            const c = Math.floor(Math.random() * 90) + 10;
-                            question = `${a * b} ÷ ${a} + ${c} =`;
-                            answer = b + c;
+                    } else if (subSubGrade === 'unitConversion') {
+                        // 度量单位换算
+                        const unitType = Math.random();
+                        if (unitType > 0.75) {
+                            // 长度单位换算（千米、米、分米、厘米、毫米）
+                            const lengthUnit = Math.random();
+                            if (lengthUnit > 0.8) {
+                                const a = Math.floor(Math.random() * 10) + 1;
+                                question = `${a}千米 = ？米`;
+                                answer = a * 1000;
+                            } else if (lengthUnit > 0.6) {
+                                const a = Math.floor(Math.random() * 10) + 1;
+                                question = `${a * 1000}米 = ？千米`;
+                                answer = a;
+                            } else if (lengthUnit > 0.4) {
+                                const a = Math.floor(Math.random() * 10) + 1;
+                                question = `${a}米 = ？分米`;
+                                answer = a * 10;
+                            } else if (lengthUnit > 0.2) {
+                                const a = Math.floor(Math.random() * 50) + 10;
+                                question = `${a}分米 = ？厘米`;
+                                answer = a * 10;
+                            } else {
+                                const a = Math.floor(Math.random() * 50) + 10;
+                                question = `${a}厘米 = ？毫米`;
+                                answer = a * 10;
+                            }
+                        } else if (unitType > 0.5) {
+                            // 重量单位换算（吨、千克、克）
+                            const weightUnit = Math.random();
+                            if (weightUnit > 0.66) {
+                                const a = Math.floor(Math.random() * 10) + 1;
+                                question = `${a}吨 = ？千克`;
+                                answer = a * 1000;
+                            } else if (weightUnit > 0.33) {
+                                const a = Math.floor(Math.random() * 10) + 1;
+                                question = `${a * 1000}千克 = ？吨`;
+                                answer = a;
+                            } else {
+                                const a = Math.floor(Math.random() * 10) + 1;
+                                question = `${a}千克 = ？克`;
+                                answer = a * 1000;
+                            }
+                        } else if (unitType > 0.25) {
+                            // 面积单位换算（平方米、平方分米、平方厘米）
+                            const areaUnit = Math.random();
+                            if (areaUnit > 0.66) {
+                                const a = Math.floor(Math.random() * 10) + 1;
+                                question = `${a}平方米 = ？平方分米`;
+                                answer = a * 100;
+                            } else if (areaUnit > 0.33) {
+                                const a = Math.floor(Math.random() * 50) + 10;
+                                question = `${a}平方分米 = ？平方厘米`;
+                                answer = a * 100;
+                            } else {
+                                const a = Math.floor(Math.random() * 10) + 1;
+                                question = `${a * 100}平方分米 = ？平方米`;
+                                answer = a;
+                            }
                         } else {
-                            // 确保结果不为负数
-                            const c = Math.floor(Math.random() * b) + 1;
-                            question = `${a * b} ÷ ${a} - ${c} =`;
-                            answer = b - c;
+                            // 时间单位换算（时、分、秒）
+                            const timeUnit = Math.random();
+                            if (timeUnit > 0.66) {
+                                const a = Math.floor(Math.random() * 24) + 1;
+                                question = `${a}时 = ？分`;
+                                answer = a * 60;
+                            } else if (timeUnit > 0.33) {
+                                const a = Math.floor(Math.random() * 60) + 1;
+                                question = `${a}分 = ？秒`;
+                                answer = a * 60;
+                            } else {
+                                const a = Math.floor(Math.random() * 60) + 1;
+                                question = `${a}分 = ？时${a % 60}分`;
+                                const hours = Math.floor(a / 60);
+                                const minutes = a % 60;
+                                answer = hours * 60 + minutes;
+                            }
                         }
                     } else {
-                        // 连乘连除
-                        const a = Math.floor(Math.random() * 9) + 2;
-                        const b = Math.floor(Math.random() * 9) + 2;
-                        const c = Math.floor(Math.random() * 9) + 2;
-                        if (Math.random() > 0.5) {
-                            question = `${a} × ${b} × ${c} =`;
-                            answer = a * b * c;
+                        // 默认：混合练习（除数2位数的除法、三位数乘一位数、小数加减法）
+                        const rand = Math.random();
+                        if (rand > 0.5) {
+                            // 小数加减法（一位小数）
+                            const a = Math.floor(Math.random() * 90) + 10;
+                            const b = Math.floor(Math.random() * 90) + 10;
+                            const dec1 = Math.floor(Math.random() * 10);
+                            const dec2 = Math.floor(Math.random() * 10);
+                            if (Math.random() > 0.5) {
+                                question = `${a}.${dec1} + ${b}.${dec2} =`;
+                                answer = (a + b) + (dec1 + dec2) / 10;
+                            } else {
+                                const num1 = parseFloat(`${a}.${dec1}`);
+                                const num2 = parseFloat(`${b}.${dec2}`);
+                                const max = Math.max(num1, num2);
+                                const min = Math.min(num1, num2);
+                                question = `${max.toFixed(1)} - ${min.toFixed(1)} =`;
+                                answer = max - min;
+                            }
+                        } else if (rand > 0.25) {
+                            // 三位数乘一位数
+                            const a = Math.floor(Math.random() * 900) + 100;
+                            const b = Math.floor(Math.random() * 9) + 1;
+                            question = `${a} × ${b} =`;
+                            answer = a * b;
                         } else {
-                            question = `${a * b * c} ÷ ${a} ÷ ${b} =`;
-                            answer = c;
+                            // 除数2位数的除法
+                            const b = Math.floor(Math.random() * 90) + 10;
+                            answer = Math.floor(Math.random() * 9) + 1;
+                            const a = b * answer;
+                            question = `${a} ÷ ${b} =`;
+                        }
+                    }
+                } else if (subGrade === 'comprehensive') {
+                    // 综合练习：80%除加除减混合和连乘连除，20%其他类型题目
+                    if (Math.random() > 0.2) {
+                        // 80%：除加除减混合运算和连乘连除
+                        if (Math.random() > 0.5) {
+                            // 除加除减混合运算
+                            const a = Math.floor(Math.random() * 90) + 10;
+                            const b = Math.floor(Math.random() * 9) + 1;
+                            if (Math.random() > 0.5) {
+                                const c = Math.floor(Math.random() * 90) + 10;
+                                question = `${a * b} ÷ ${a} + ${c} =`;
+                                answer = b + c;
+                            } else {
+                                // 确保结果不为负数
+                                const c = Math.floor(Math.random() * b) + 1;
+                                question = `${a * b} ÷ ${a} - ${c} =`;
+                                answer = b - c;
+                            }
+                        } else {
+                            // 连乘连除
+                            const a = Math.floor(Math.random() * 9) + 2;
+                            const b = Math.floor(Math.random() * 9) + 2;
+                            const c = Math.floor(Math.random() * 9) + 2;
+                            if (Math.random() > 0.5) {
+                                question = `${a} × ${b} × ${c} =`;
+                                answer = a * b * c;
+                            } else {
+                                question = `${a * b * c} ÷ ${a} ÷ ${b} =`;
+                                answer = c;
+                            }
+                        }
+                    } else {
+                        // 20%：其他类型题目（小数加减法、三位数乘两位数、两位数除法）
+                        const otherType = Math.random();
+                        if (otherType > 0.66) {
+                            // 小数加减法（两位小数）
+                            if (Math.random() > 0.5) {
+                                // 小数加法
+                                const a = Math.floor(Math.random() * 90) + 10;
+                                const b = Math.floor(Math.random() * 90) + 10;
+                                const dec1 = Math.floor(Math.random() * 100);
+                                const dec2 = Math.floor(Math.random() * 100);
+                                question = `${a}.${dec1.toString().padStart(2, '0')} + ${b}.${dec2.toString().padStart(2, '0')} =`;
+                                answer = (a + b) + (dec1 + dec2) / 100;
+                            } else {
+                                // 小数减法（确保结果不为负数）
+                                const a = Math.floor(Math.random() * 90) + 10;
+                                const b = Math.floor(Math.random() * 90) + 10;
+                                const dec1 = Math.floor(Math.random() * 100);
+                                const dec2 = Math.floor(Math.random() * 100);
+                                const num1 = parseFloat(`${a}.${dec1.toString().padStart(2, '0')}`);
+                                const num2 = parseFloat(`${b}.${dec2.toString().padStart(2, '0')}`);
+                                const max = Math.max(num1, num2);
+                                const min = Math.min(num1, num2);
+                                question = `${max.toFixed(2)} - ${min.toFixed(2)} =`;
+                                answer = max - min;
+                            }
+                        } else if (otherType > 0.33) {
+                            // 三位数乘两位数乘法
+                            const hundreds = Math.floor(Math.random() * 9) + 1;
+                            const tens = Math.floor(Math.random() * 10);
+                            const ones = Math.floor(Math.random() * 10);
+                            const threeDigit = hundreds * 100 + tens * 10 + ones;
+                            const tens2 = Math.floor(Math.random() * 9) + 1;
+                            const ones2 = Math.floor(Math.random() * 10);
+                            const twoDigit = tens2 * 10 + ones2;
+                            question = `${threeDigit} × ${twoDigit} =`;
+                            answer = threeDigit * twoDigit;
+                        } else {
+                            // 两位数除法（能整除）
+                            const divisor = Math.floor(Math.random() * 90) + 10;
+                            const quotient = Math.floor(Math.random() * 90) + 10;
+                            const dividend = divisor * quotient;
+                            question = `${dividend} ÷ ${divisor} =`;
+                            answer = quotient;
                         }
                     }
                 } else {
@@ -686,43 +1690,139 @@ function generateQuestions(grade, count, subGrade = '') {
                 
             case 5: // 五年级：根据子目录选择不同难度
                 if (subGrade === 'basic') {
-                    // 基础练习：一位小数加减乘除法
-                    const rand = Math.random();
-                    if (rand > 0.5) {
-                        // 一位小数加减法
-                        const a = Math.floor(Math.random() * 90) + 10;
-                        const b = Math.floor(Math.random() * 90) + 10;
-                        const dec1 = Math.floor(Math.random() * 10);
-                        const dec2 = Math.floor(Math.random() * 10);
-                        if (Math.random() > 0.5) {
-                            question = `${a}.${dec1} + ${b}.${dec2} =`;
-                            answer = (a + b) + (dec1 + dec2) / 10;
+                    // 基础练习：根据二级子目录选择
+                    if (subSubGrade === 'decimalMult') {
+                        // 小数乘法
+                        const decimalMultType = Math.random();
+                        if (decimalMultType > 0.5) {
+                            // 小数乘整数
+                            const integer = Math.floor(Math.random() * 90) + 10;
+                            const dec = Math.floor(Math.random() * 100);
+                            const decimal = parseFloat(`0.${dec.toString().padStart(2, '0')}`);
+                            question = `${integer} × ${decimal.toFixed(2)} =`;
+                            answer = integer * decimal;
                         } else {
+                            // 小数乘小数
+                            const a = Math.floor(Math.random() * 90) + 10;
+                            const b = Math.floor(Math.random() * 90) + 10;
+                            const dec1 = Math.floor(Math.random() * 100);
+                            const dec2 = Math.floor(Math.random() * 100);
+                            const decimal1 = parseFloat(`${a}.${dec1.toString().padStart(2, '0')}`);
+                            const decimal2 = parseFloat(`${b}.${dec2.toString().padStart(2, '0')}`);
+                            question = `${decimal1.toFixed(2)} × ${decimal2.toFixed(2)} =`;
+                            answer = decimal1 * decimal2;
+                        }
+                    } else if (subSubGrade === 'decimalDiv') {
+                        // 小数除法
+                        const decimalDivType = Math.random();
+                        if (decimalDivType > 0.5) {
+                            // 小数除以整数
+                            const divisor = Math.floor(Math.random() * 9) + 1;
+                            const quotient = parseFloat((Math.random() * 10 + 1).toFixed(2));
+                            const dividend = divisor * quotient;
+                            question = `${dividend.toFixed(2)} ÷ ${divisor} =`;
+                            answer = quotient;
+                        } else {
+                            // 小数除以小数（能整除）
+                            const divisorDec = Math.floor(Math.random() * 90) + 10;
+                            const divisor = parseFloat(`0.${divisorDec.toString().padStart(2, '0')}`);
+                            const quotient = Math.floor(Math.random() * 90) + 10;
+                            const dividend = divisor * quotient;
+                            question = `${dividend.toFixed(2)} ÷ ${divisor.toFixed(2)} =`;
+                            answer = quotient;
+                        }
+                    } else if (subSubGrade === 'fractionAddSub') {
+                        // 分数加减法
+                        const fractionType = Math.random();
+                        if (fractionType > 0.5) {
+                            // 分数加法
+                            const num1 = Math.floor(Math.random() * 9) + 1;
+                            const den1 = Math.floor(Math.random() * 9) + 2;
+                            const num2 = Math.floor(Math.random() * 9) + 1;
+                            const den2 = Math.floor(Math.random() * 9) + 2;
+                            question = `${num1}/${den1} + ${num2}/${den2} =`;
+                            const commonDen = den1 * den2;
+                            const newNum1 = num1 * den2;
+                            const newNum2 = num2 * den1;
+                            const sumNum = newNum1 + newNum2;
+                            // 简化分数
+                            const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+                            const divisor = gcd(sumNum, commonDen);
+                            const simplifiedNum = sumNum / divisor;
+                            const simplifiedDen = commonDen / divisor;
+                            if (simplifiedDen === 1) {
+                                answer = simplifiedNum;
+                            } else {
+                                answer = `${simplifiedNum}/${simplifiedDen}`;
+                            }
+                        } else {
+                            // 分数减法（确保结果不为负数）
+                            const num1 = Math.floor(Math.random() * 9) + 1;
+                            const den1 = Math.floor(Math.random() * 9) + 2;
+                            const num2 = Math.floor(Math.random() * 9) + 1;
+                            const den2 = Math.floor(Math.random() * 9) + 2;
+                            const commonDen = den1 * den2;
+                            const newNum1 = num1 * den2;
+                            const newNum2 = num2 * den1;
+                            const maxNum = Math.max(newNum1, newNum2);
+                            const minNum = Math.min(newNum1, newNum2);
+                            const diffNum = maxNum - minNum;
+                            // 简化分数
+                            const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+                            const divisor = gcd(diffNum, commonDen);
+                            const simplifiedNum = diffNum / divisor;
+                            const simplifiedDen = commonDen / divisor;
+                            if (simplifiedDen === 1) {
+                                answer = simplifiedNum;
+                            } else {
+                                answer = `${simplifiedNum}/${simplifiedDen}`;
+                            }
+                            // 根据大小调整题目显示顺序
+                            if (newNum1 >= newNum2) {
+                                question = `${num1}/${den1} - ${num2}/${den2} =`;
+                            } else {
+                                question = `${num2}/${den2} - ${num1}/${den1} =`;
+                            }
+                        }
+                    } else {
+                        // 默认：一位小数加减乘除法
+                        const rand = Math.random();
+                        if (rand > 0.5) {
+                            // 一位小数加减法
+                            const a = Math.floor(Math.random() * 90) + 10;
+                            const b = Math.floor(Math.random() * 90) + 10;
+                            const dec1 = Math.floor(Math.random() * 10);
+                            const dec2 = Math.floor(Math.random() * 10);
+                            if (Math.random() > 0.5) {
+                                question = `${a}.${dec1} + ${b}.${dec2} =`;
+                                answer = (a + b) + (dec1 + dec2) / 10;
+                            } else {
+                                const num1 = parseFloat(`${a}.${dec1}`);
+                                const num2 = parseFloat(`${b}.${dec2}`);
+                                const max = Math.max(num1, num2);
+                                const min = Math.min(num1, num2);
+                                question = `${max.toFixed(1)} - ${min.toFixed(1)} =`;
+                                answer = max - min;
+                            }
+                        } else if (rand > 0.25) {
+                            // 一位小数乘法
+                            const a = Math.floor(Math.random() * 9) + 1;
+                            const b = Math.floor(Math.random() * 9) + 1;
+                            const dec1 = Math.floor(Math.random() * 10);
+                            const dec2 = Math.floor(Math.random() * 10);
                             const num1 = parseFloat(`${a}.${dec1}`);
                             const num2 = parseFloat(`${b}.${dec2}`);
-                            const max = Math.max(num1, num2);
-                            const min = Math.min(num1, num2);
-                            question = `${max.toFixed(1)} - ${min.toFixed(1)} =`;
-                            answer = max - min;
+                            question = `${num1.toFixed(1)} × ${num2.toFixed(1)} =`;
+                            answer = num1 * num2;
+                        } else {
+                            // 一位小数除法（结果为整数或一位小数）
+                            const a = Math.floor(Math.random() * 9) + 1;
+                            const b = Math.floor(Math.random() * 9) + 1;
+                            const dec = Math.floor(Math.random() * 10);
+                            const num1 = parseFloat(`${a}.${dec}`);
+                            question = `${(num1 * b).toFixed(1)} ÷ ${num1.toFixed(1)} =`;
+                            answer = b;
                         }
-                    } else if (rand > 0.25) {
-                        // 一位小数乘法
-                        const a = Math.floor(Math.random() * 9) + 1;
-                        const b = Math.floor(Math.random() * 9) + 1;
-                        const dec1 = Math.floor(Math.random() * 10);
-                        const dec2 = Math.floor(Math.random() * 10);
-                        const num1 = parseFloat(`${a}.${dec1}`);
-                        const num2 = parseFloat(`${b}.${dec2}`);
-                        question = `${num1.toFixed(1)} × ${num2.toFixed(1)} =`;
-                        answer = num1 * num2;
-                    } else {
-                        // 一位小数除法（结果为整数或一位小数）
-                        const a = Math.floor(Math.random() * 9) + 1;
-                        const b = Math.floor(Math.random() * 9) + 1;
-                        const dec = Math.floor(Math.random() * 10);
-                        const num1 = parseFloat(`${a}.${dec}`);
-                        question = `${(num1 * b).toFixed(1)} ÷ ${num1.toFixed(1)} =`;
-                        answer = b;
                     }
                 } else if (subGrade === 'comprehensive') {
                     // 综合练习：小数混合运算、分数的加减运算
